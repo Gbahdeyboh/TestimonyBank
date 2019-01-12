@@ -1,3 +1,7 @@
+:root{
+    --red: rgb(223, 28, 28);
+}
+
 body{
     font-family: 'Allerta', sans-serif;
     margin: 0!important;
@@ -5,28 +9,220 @@ body{
 html{ 
     scroll-behavior: smooth;
 }
+
+.fullHeight{
+    height: 100%!important;
+}
+
+.halfHeight{
+    height: 50%!important;
+}
+
+.fullWidth{
+    width: 100%!important;
+}
+
+.halfWidth{
+    width: 50%!important;
+}
+
+.displayFlex{
+    display: flex!important;
+    justify-content: center!important;
+    align-items: center!important;
+}
+
+.displayFlexColumn{
+    display: flex!important;
+    justify-content: center!important;
+    align-items: center!important;
+    flex-direction: column!important;
+}
+
+.displayFlexRow{
+    display: flex!important;
+    justify-content: center!important;
+    align-items: center!important;
+    flex-direction: row!important;
+}
+
+.displayFlexRight{
+    display: flex!important;
+    justify-content: flex-end!important;
+    align-items: center!important;
+}
+
+.displayFlexLeft{
+    display: flex!important;
+    justify-content: flex-start!important;
+    align-items: center!important;
+}
+
+.displayFlexTop{
+    display: flex!important;
+    justify-content: center!important;
+    align-items: flex-start!important;
+}
+
+.displayFlexBottom{
+    display: flex!important;
+    justify-content: center!important;
+    align-items: flex-end!important;
+}
+
+.padLeft{
+    padding-left: 1em!important;
+}
+
+.padRight{
+    padding-right: 1em!important;
+}
+
+.padTop{
+    padding-top: 1em!important;
+}
+
+.padBottom{
+    padding-bottom: 1em!important;
+}
+
+.pad{
+    padding: 1em!important;
+}
+
+.marginLeft{
+    margin-left: 1em!important;
+}
+
+.marginRight{
+    margin-right: 1em!important;
+}
+
+.marginTop{
+    margin-top: 1em!important;
+}
+
+.marginBottom{
+    margin-bottom: 1em!important;
+}
+
+.margin{
+    margin: 1em!important;
+}
+
+
+
+
+
 .firstPage{
     width: 100%;
     height: 90vh;
-    background-image: url('../images/hotels35.jpeg');
-    background-repeat: none;
-    background-clip: content-box;
+}
+#firstPageImage{
     object-fit: cover;
 }
 #firstPageOverlay{
-    background: linear-gradient(rgb(231, 38, 38), rgb(243, 65, 65), white);
+    background: linear-gradient(rgb(248, 29, 29), rgb(248, 29, 29), rgb(131, 38, 38), rgb(143, 65, 65), white);
     position: absolute;
     top: 0px;
     right: 0px;
     left: 0px;
     opacity: 0.5;
 }
+#firstPageBody{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+}
 
+#firstPageBodyHead{
+    height: 12%;
+    width: 100%;
+    margin: 0px!important;
+}
+
+#firstPageBodyHeadLogo{
+    width: 65px;
+    height: 65px;
+}
+
+#loginButton{
+    width: 120px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid #FFFFFF;
+    transition: background .5s linear;
+    color: #FFFFFF;
+}
+#loginButton:hover{
+    background: #FFFFFF;
+    color: var(--red);
+}
+
+#headerName{
+    font-family: 'Sofia'!important;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+.headerScrolled{
+    position:fixed!important;
+    top: 0px!important;
+    right: 0px!important;
+    left: 0px!important;
+    animation: slide .5s linear;
+    background: #FFFFFF!important;
+}
+
+.headerScrolled > div > #headerName{
+    color: var(--red);
+}
+
+.headerScrolled > div > #loginButton{
+    border: 2px solid var(--red);
+    color: var(--red);
+}
+
+.headerScrolled > div > #loginButton:hover {
+    background: var(--red);
+    color: #FFFFFF
+}
+
+@keyframes slide {
+    from{
+        transform: translateY(-100px);
+    }
+}
+
+#firstPageBodyContent{
+    height: 88%;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+#bibleVerse{
+    text-align: right!important;
+    padding-right: 10em;
+    font-size: 1.3em;
+}
+
+#test{
+    width: 100%;
+    height: 1000px;
+}
 
 
 
 @media only screen and (max-width: 600px){
     .firstPage{
         height: 100vh!important;
+    }
+    #headerName{
+        font-size: 2em!important;
+    }
+    #bibleVerse{
+        padding-right: 3em!important;
     }
 }
