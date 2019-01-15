@@ -1,3 +1,4 @@
+//After first page has been scrolled, change the class of the header to change how its displayed
 function headerScroll(){
     let firstPageBodyHead = document.querySelector('#firstPageBodyHead');
     if(document.documentElement.scrollTop > 600 || document.body.scrollTop > 600){
@@ -7,5 +8,4 @@ function headerScroll(){
         firstPageBodyHead.classList.remove('headerScrolled');
     }
 }
-
-window.onscroll = () => {headerScroll();}
+window.onscroll = () => {headerScroll();} 
