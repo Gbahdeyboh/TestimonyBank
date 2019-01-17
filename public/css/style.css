@@ -9,7 +9,7 @@ body{
 }
 html{ 
     scroll-behavior: smooth;
-}
+} 
 
 .fullHeight{
     height: 100%!important;     
@@ -112,7 +112,7 @@ html{
 }
 
 #pageOverlay{
-    display: none!important;
+    display: none;
     position: fixed;
     top:0px;
     right: 0px;
@@ -370,7 +370,10 @@ blockquote{
 }
 
 #loginContainer{
-    display: none!important;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -380,6 +383,13 @@ blockquote{
     left: 0px;
     background: none;
     z-index: 3;
+    animation: scale .5s linear;
+}
+
+@keyframes scale {
+    from {
+        transform: scale(0);
+    }
 }
 
 #loginBody{
@@ -459,7 +469,9 @@ blockquote{
 }
 
 #signUpContainer{
-    display: none!important;
+    display: none;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: 100%;
     position: fixed;
@@ -468,6 +480,7 @@ blockquote{
     right: 0px;
     left: 0px;
     z-index: 3;
+    animation: scale .5s linear;
 }
 
 #signUpBody{
@@ -484,14 +497,14 @@ blockquote{
     font-family: 'LatoWeb';
 }
 
-#closeSignUp{
+#closeSignUp, #closeLogin{
     font-size: 1em;
     cursor: pointer;
     color: grey;
     transition: color .5s linear;
 }
 
-#closeSignUp:hover{
+#closeSignUp:hover, #closeLogin:hover{
     color: var(--red);
 }
 

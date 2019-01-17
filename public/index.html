@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" description="Bello Gbadebo">
     <meta name="TestimonyBank" description="A simple web app to store peoples testimonies">
-    <title>Document</title>
+    <title>Document</title> 
     <!--stylesheets-->
     <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
     <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
@@ -412,8 +412,14 @@
     </section>
 
     <section>
-        <div class="displayFlexColumn" id="loginContainer">
+        <div class="" id="loginContainer">
             <div class="z-depth-4 displayFlexColumn" id="loginBody">
+                <div class="row signHead displayFlex fullWidth">
+                    <div class="col s10 m10 l10 fullHeight displayFlex">Login to Testimony Bank</div>
+                    <div class="col s2 m2 l2 fullHeight displayFlexRight" id="closeLogin">
+                        <span class="fas fa-times"></span>
+                    </div>
+                </div>
                 <div class="inputBody">
                     <div class="fullWidth displayFlexLeft inputName">Email</div>
                     <div class="inputTextBody displayFlex fullWidth">
@@ -432,13 +438,13 @@
                 </div>
             </div>
             <div class="z-depth-4 displayFlex" id="noAccountBody">
-                No account yet? &nbsp; <span><a href="#">Create Account</a></span>
+                No account yet? &nbsp; <span><a href="#" id="createAccount">Create Account</a></span>
             </div>
         </div>
     </section>
 
     <section>
-        <div class="displayFlex" id="signUpContainer">
+        <div class="" id="signUpContainer">
             <div class=" displayFlexColumn pad z-depth-4" id="signUpBody">
                 <div class="row signHead displayFlex fullWidth">
                     <div class="col s10 m10 l10 fullHeight displayFlex">Sign Up to Testimony Bank</div>
