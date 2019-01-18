@@ -1,31 +1,11 @@
 const express = require('express');
 const app = express();
+const jwt = require('jsonwebtoken');
 
 const userModel = require('../models/users');
 
 const hash = require('./hash'); //pasword hashing module
 
-app.get('/users', (req, res, next) => { //returns a list of all users
-    userModel.find()
-    .then(profile => {
-        res.json({
-            success: true,
-            payload: {
-                data: profile
-            }
-        });
-    })
-    .catch(err => {
-        res.json({
-            success: false,
-            payload: null,
-            error: {
-                code: 500,
-                message: "An error Occured"
-            }
-        })
-    })
-})
 
 app.post('/signup', (req, res, next) => {
     //check if user already exists
@@ -53,11 +33,22 @@ app.post('/signup', (req, res, next) => {
             userModel.create(req.body)
             .then(profile => {
                 delete profile.password.salt; //delete the salt before send it back to the client
+                delete profile.password.password; //delete the hashed password before sending it back to the client
+                delete profile.password; //delete the password Object before sending it back to the client
+                //Generate a json web token so user is automatically logged in after signup
+                const token = jwt.sign({
+                    name: profile.name,
+                    email: profile.email,
+                    number: profile.number,
+                    _id: profile.id,
+                    created: profile.created
+                }, process.env.JWT_KEY, {expiresIn: '14d'});
                 res.json({
                     success: true,
                     payload: {
                         message: "New user succesfully created",
-                        data: profile
+                        data: profile,
+                        token
                     }
                 })
             })
@@ -66,7 +57,8 @@ app.post('/signup', (req, res, next) => {
                     success: false,
                     error: {
                         code: 500,
-                        message: "Did not create user"
+                        message: "Did not create user",
+                        error: err
                     }
                 })
             })
@@ -80,7 +72,6 @@ app.post('/signup', (req, res, next) => {
     });
 
 });
-
 
 
 module.exports = app;

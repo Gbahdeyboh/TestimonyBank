@@ -59,3 +59,10 @@ document.addEventListener('DOMContentLoaded', () => {
         closeAccountDisplay();
     })
 });
+
+fetch('http://localhost:4000/api/users')
+.then(data => {
+    return data.json();
+})
+.then(data =>  console.log(data))
+.catch(err => console.log(err));
