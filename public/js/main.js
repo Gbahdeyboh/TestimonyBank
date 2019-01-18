@@ -42,6 +42,36 @@ function closeAccountDisplay(){
     accountCreateContainer.style.display = "none";
 }
 
+function signUp(){
+   this.name = document.querySelector('#signUpFullName').value; 
+   this.email = document.querySelector('#signUpEmail').value; 
+   this.number = document.querySelector('#signUpNumber').value; 
+   this.password = document.querySelector('#signUpPassword').value; 
+   this.passwordConfirm = document.querySelector('#signUpConfirmPassword').value;
+   fetch('http://localhost:4000/api/signup', {
+       method: 'POST',
+       headers: {
+           "Content-Type": "application/json" 
+       },
+       body: JSON.stringify({
+           name: this.name,
+           email: this.email,
+           number: this.number,
+           password: this.passwordConfirm
+       })
+   })
+   .then(data => {
+       return data.json();
+    })
+   .then(data => {
+       console.log(data);
+       localStorage.setItem('t_b_tok', data.payload.token);
+   })
+   .catch(err => {
+       console.log(err);
+   })
+};
+
 //Wait for DOM to load
 document.addEventListener('DOMContentLoaded', () => {
     const loginBtn = document.querySelector('#loginButton');
@@ -59,10 +89,3 @@ document.addEventListener('DOMContentLoaded', () => {
         closeAccountDisplay();
     })
 });
-
-fetch('http://localhost:4000/api/users')
-.then(data => {
-    return data.json();
-})
-.then(data =>  console.log(data))
-.catch(err => console.log(err));

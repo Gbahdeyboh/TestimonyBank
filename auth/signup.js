@@ -9,6 +9,7 @@ const hash = require('./hash'); //pasword hashing module
 
 app.post('/signup', (req, res, next) => {
     //check if user already exists
+    console.log("The body is : ", req.body);
     userModel.find({email: req.body.email})
     .then(doc => {
         if(doc.length >= 1){ 
@@ -53,11 +54,11 @@ app.post('/signup', (req, res, next) => {
                 })
             })
             .catch(err => {
-                res.json({
+                res.status(400).json({
                     success: false,
                     error: {
                         code: 500,
-                        message: "Did not create user",
+                        message: "Did not create user< check the request body",
                         error: err
                     }
                 })
@@ -65,7 +66,7 @@ app.post('/signup', (req, res, next) => {
         }
     })
     .catch(err=> {
-        res.json({
+        res.status(500).json({
             success: false,
             error: err
         });
