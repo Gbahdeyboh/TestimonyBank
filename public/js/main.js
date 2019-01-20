@@ -88,14 +88,14 @@ function ValidateSignUp(){
                 this.password.style.borderColor = 'red';
                 reject(Error("Password must be atleast 8 characters long"));
             }
-            // if(this.password.value.charAt(0).search(/[A-B]/g) === -1){
-            //     this.errors.style.display = "flex";
-            //     this.password.style.borderColor = 'red';
-            //     reject(Error("Password must start with an uppercase letter"));
-            //     console.log("password is ", this.password.value);
-            //     console.log("password is charAt(0) ", this.password.value.charAt(0));
-            //     console.log("password is charAt(0).search  ", this.password.value.charAt(0).search(/[A-B]/g) === -1);
-            // }
+            else if(this.password.value.charAt(0).search(/[A-B]/g) === -1){
+                this.errors.style.display = "flex";
+                this.password.style.borderColor = 'red';
+                reject(Error("Password must start with an uppercase letter"));
+                console.log("password is ", this.password.value);
+                console.log("password is charAt(0) ", this.password.value.charAt(0));
+                console.log("password is charAt(0).search  ", this.password.value.charAt(0).search(/[A-B]/g) === -1);
+            }
             else if(this.password.value.search(/[0-9]/gi) === -1){
                 this.errors.style.display = "flex";
                 this.password.style.borderColor = 'red';
@@ -132,10 +132,6 @@ function ValidateSignUp(){
         this.validateAll()
         .then(message => {
             this.errors.style.display = 'none';
-            console.log("name is : ", this.name.value);
-            // createAccount();
-            console.log("the name isssssss ", this.name.value);
-            console.log("this isssssss ", this);
             fetch('http://localhost:4000/api/signup', {
                 method: 'POST',
                 headers: {
@@ -165,39 +161,7 @@ function ValidateSignUp(){
         })
     }
 }
-//^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$
 
-function createAccount(){
-   const name = document.querySelector('#signUpFullName');
-   this.email = document.querySelector('#signUpEmail'); 
-   this.number = document.querySelector('#signUpNumber'); 
-   this.password = document.querySelector('#signUpPassword'); 
-   this.passwordConfirm = document.querySelector('#signUpConfirmPassword');
-   console.log("the name isssssss ", name.value);
-   console.log("this isssssss ", this);
-   fetch('http://localhost:4000/api/signup', {
-       method: 'POST',
-       headers: {
-           "Content-Type": "application/json" 
-       },
-       body: JSON.stringify({
-           name: this.name.value,
-           email: this.email.value,
-           number: this.number.value,
-           password: this.passwordConfirm.value
-       })
-   })
-   .then(data => {
-       return data.json();
-    })
-   .then(data => {
-       console.log(data);
-       localStorage.setItem('t_b_tok', data.payload.token);
-   })
-   .catch(err => {
-       console.log(err);
-   })
-}
 
 //Wait for DOM to load
 document.addEventListener('DOMContentLoaded', () => {
