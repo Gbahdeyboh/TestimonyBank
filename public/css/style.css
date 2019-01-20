@@ -4,10 +4,10 @@
 }
 
 body{
-    font-family: 'Allerta', sans-serif;
+    font-family: 'Allerta', sans-serif; 
     margin: 0!important;
 }
-html{ 
+html{
     scroll-behavior: smooth;
 } 
 
@@ -112,7 +112,7 @@ html{
 }
 
 #pageOverlay{
-    display: none;
+    display: block;
     position: fixed;
     top:0px;
     right: 0px;
@@ -468,8 +468,17 @@ blockquote{
     background: var(--red);
 }
 
+.submitBtn:active{
+    background: var(--lightRed);
+}
+
+#signUpBtn:disabled{
+    background: lightgrey;
+    cursor: not-allowed;
+}
+
 #signUpContainer{
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -484,7 +493,7 @@ blockquote{
 }
 
 #signUpBody{
-    height: 550px;
+    height: 600px;
     width: 300px;
     border-radius: 5px;
     background: white;
@@ -506,6 +515,15 @@ blockquote{
 
 #closeSignUp:hover, #closeLogin:hover{
     color: var(--red);
+}
+
+.inputErrorBody{
+    background: rgb(247, 212, 212);
+    color: red;
+    font-size: 12px;
+    display: none;
+    justify-content: center;
+    align-items: center;
 }
 
 

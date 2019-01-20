@@ -9,7 +9,7 @@ const signupAuth = require('./auth/signup');
 
 const userRoute = require('./routes/users');
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded()); 
 app.use(bodyParser.json());
 app.use(express.json());
 

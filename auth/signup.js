@@ -58,7 +58,7 @@ app.post('/signup', (req, res, next) => {
                     success: false,
                     error: {
                         code: 500,
-                        message: "Did not create user< check the request body",
+                        message: "Did not create user check the request body",
                         error: err
                     }
                 })

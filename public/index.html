@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="author" description="Bello Gbadebo">
     <meta name="TestimonyBank" description="A simple web app to store peoples testimonies">
-    <title>Document</title> 
+    <title>Document</title>  
     <!--stylesheets-->
     <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
     <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
@@ -434,7 +434,7 @@
                 </div>
                 <div class="fullWidth displayFlexRight pad" id="forgotPassword">Forgot Password?</div>
                 <div class="fullWidth displayFlexLeft" id="loginBtnBody">
-                    <button class="submitBtn displayFlex waves-effect waves-light" id="loginBtn">Login</button>
+                    <button class="submitBtn displayFlex waves-effect waves-light red" id="loginBtn">Login</button>
                 </div>
             </div>
             <div class="z-depth-4 displayFlex" id="noAccountBody">
@@ -455,19 +455,19 @@
                 <div class="inputBody">
                     <div class="fullWidth displayFlexLeft inputName">Full Name</div>
                     <div class="inputTextBody displayFlex fullWidth">
-                        <input type="text" placeholder="johndoe@xyzmail.com" class="browser-default input" id="signUpFullName"/>
+                        <input type="text" placeholder="Surname first" class="browser-default input" id="signUpFullName"/>
                     </div>
                 </div>
                 <div class="inputBody">
                     <div class="fullWidth displayFlexLeft inputName">Email</div>
                     <div class="inputTextBody displayFlex fullWidth">
-                        <input type="email" placeholder="johndoe@xyzmail.com" class="browser-default input"  id="signUpEmail"/>
+                        <input type="email" placeholder="peterpaul@xyzmail.com" class="browser-default input"  id="signUpEmail"/>
                     </div>
                 </div>
                 <div class="inputBody">
-                    <div class="fullWidth displayFlexLeft inputName">Mobile No</div>
+                    <div class="fullWidth displayFlexLeft inputName">Mobile No(Optional)</div>
                     <div class="inputTextBody displayFlex fullWidth">
-                        <input type="number" placeholder="johndoe@xyzmail.com" class="browser-default input" id="signUpNumber"/>
+                        <input type="number" placeholder="+2340000000000" class="browser-default input" id="signUpNumber"/>
                     </div>
                 </div>
                 <div class="inputBody">
@@ -482,8 +482,11 @@
                         <input type="password" placeholder="***********" class="browser-default input"  id="signUpConfirmPassword"/>
                     </div>
                 </div>
+                <div class="inputBody inputErrorBody" id="signUpError">
+                    <!--Error message goes here-->
+                </div>
                 <div class="fullWidth displayFlexLeft loginBtnBody">
-                    <button class="submitBtn displayFlex waves-effect waves-light" id="signUpBtn" onclick="signUp()">Sign Up</button>
+                    <button class="submitBtn displayFlex waves-effect waves-light browser-default red" id="signUpBtn">Sign Up</button>
                 </div>
             </div>
         </div>
