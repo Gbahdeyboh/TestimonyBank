@@ -19,7 +19,7 @@ app.post('/signup', (req, res, next) => {
                 payload: null, 
                 error: {
                     code: 550,
-                    message: "User already has an account with the provided mail"
+                    message: "The email account is already registered with anothe account"
                 }
             });
         }

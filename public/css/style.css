@@ -1,6 +1,7 @@
 :root{
     --red: rgb(223, 28, 28);
     --lightRed: rgb(223, 78, 78);
+    --veryLightRed: rgb(226, 183, 183);
 }
 
 body{
@@ -473,7 +474,7 @@ blockquote{
 }
 
 #signUpBtn:disabled{
-    background: lightgrey;
+    background: lightgrey!important;
     cursor: not-allowed;
 }
 
@@ -497,6 +498,16 @@ blockquote{
     width: 300px;
     border-radius: 5px;
     background: white;
+}
+
+#signUpLoading{
+    position: absolute;
+    height: 600px;
+    width: 300px;
+    border-radius: 5px;
+    background: white;
+    z-index: 3;
+    opacity: 0.95;
 }
 
 .signHead{
@@ -525,6 +536,8 @@ blockquote{
     justify-content: center;
     align-items: center;
 }
+
+
 
 
 
