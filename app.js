@@ -3,16 +3,20 @@ const app = express();
 const bodyParser = require('body-parser');
 const customEnv = require('custom-env').env();
  
-const mongooseConnect = require('./config/mongo');
+const mongooseConnect = require('./config/mongo'); //connect to mongo database
 
 const signupAuth = require('./auth/signup');
 
+const signinAuth = require('./auth/signin');
+
 const userRoute = require('./routes/users');
 
-app.use(bodyParser.urlencoded()); 
+app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use(express.json());
 
+
+//Enable cors
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
@@ -24,6 +28,7 @@ app.use((req, res, next) => {
 });
 
 app.use('/api', signupAuth);
+app.use('/api', signinAuth);
 app.use('/api', userRoute);
 
 const crypto = require('crypto'); 
@@ -31,7 +36,7 @@ const crypto = require('crypto');
 
 
 
-const port = 4000 || process.env.PORT;
+const port = 5000 || process.env.PORT;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 //Success json message format

@@ -43,7 +43,7 @@ app.post('/signup', (req, res, next) => {
                     number: profile.number,
                     _id: profile.id,
                     created: profile.created
-                }, process.env.JWT_KEY, {expiresIn: '14d'});
+                }, process.env.JWT_KEY, {expiresIn: '30d'});
                 res.json({
                     success: true,
                     payload: {

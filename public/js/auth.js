@@ -87,7 +87,7 @@ function ValidateSignUp(){
             this.errors.style.display = 'none';
             this.signUpBtn.disabled = true; //disable sign up button
             //Send request to create account
-            fetch('http://localhost:4000/api/signup', {
+            fetch('http://localhost:5000/api/signup', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json" 
@@ -135,12 +135,6 @@ function ValidateSignUp(){
 function login(){
 
 }
-
-setTimeout(() => {
-    const obj = new ValidateSignUp();
-    const r = Object.assign({}, obj);
-    console.log(r.email);
-}, 1000)
 
 
 
