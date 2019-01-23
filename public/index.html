@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -10,7 +10,7 @@
     <!--stylesheets-->
     <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
     <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
-    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" media="all" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" media="all" /> 
     <link rel="stylesheet" type="text/css" href="css/google_font/base.css" media="all" />
     <link rel="stylesheet" type="text/css" href="css/icons/icon_set_1.css" media="all" />
     <link rel="stylesheet" type="text/css" href="css/icons/icon_set_2.css" media="all" />
@@ -424,16 +424,19 @@
                 <div class="inputBody">
                     <div class="fullWidth displayFlexLeft inputName">Email</div>
                     <div class="inputTextBody displayFlex fullWidth">
-                        <input type="text" placeholder="johndoe@xyzmail.com" class="browser-default input" />
+                        <input type="text" placeholder="johndoe@xyzmail.com" class="browser-default input" id="loginEmail"/>
                     </div>
                 </div>
                 <div class="inputBody">
                     <div class="fullWidth displayFlexLeft inputName">Password</div>
                     <div class="inputTextBody displayFlex fullWidth">
-                        <input type="password" placeholder="***********" class="browser-default input" />
+                        <input type="password" placeholder="***********" class="browser-default input" id="loginPassword"/>
                     </div>
                 </div>
                 <div class="fullWidth displayFlexRight pad" id="forgotPassword">Forgot Password?</div>
+                <div class="inputBody inputErrorBody" id="loginError">
+                    <!--Error message goes here-->
+                </div>
                 <div class="fullWidth displayFlexLeft" id="loginBtnBody">
                     <button class="submitBtn displayFlex waves-effect waves-light red" id="loginBtn">Login</button>
                 </div>

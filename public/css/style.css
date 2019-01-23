@@ -5,12 +5,12 @@
 }
 
 body{
-    font-family: 'Allerta', sans-serif; 
+    font-family: 'Allerta', sans-serif;  
     margin: 0!important;
 }
 html{
     scroll-behavior: smooth;
-} 
+}  
 
 .fullHeight{
     height: 100%!important;     
@@ -371,7 +371,7 @@ blockquote{
 }
 
 #loginContainer{
-    display: none;
+    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -395,7 +395,8 @@ blockquote{
 
 #loginBody{
     width: 300px;
-    height: 350px;
+    min-height: 350px;
+    max-height: 430px;
     background: #FFFFFF;
     border-radius: 5px;
     margin-bottom: 1em;
@@ -452,6 +453,10 @@ blockquote{
     height: 70px;
 }
 
+#loginBtn{
+    margin-bottom: 1em!important;
+}
+
 .submitBtn{
     width: 100px;
     height: 50px;
@@ -479,7 +484,7 @@ blockquote{
 }
 
 #signUpContainer{
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     width: 100%;
@@ -529,7 +534,11 @@ blockquote{
 }
 
 .inputErrorBody{
+    display: flex;
+    text-align: center;
     background: rgb(247, 212, 212);
+    min-height: 40px;
+    max-height: 60px;
     color: red;
     font-size: 12px;
     display: none;

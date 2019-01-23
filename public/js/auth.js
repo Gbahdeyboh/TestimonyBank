@@ -1,6 +1,8 @@
-//Account creation and login validations
+/*=======================================
+| Account creation and login validations   |
+=========================================*/
 function ValidateSignUp(){
-    this.name = document.querySelector('#signUpFullName'); 
+    this.name = document.querySelector('#signUpFullName');
     this.email = document.querySelector('#signUpEmail'); 
     this.number = document.querySelector('#signUpNumber'); 
     this.password = document.querySelector('#signUpPassword'); 
@@ -44,11 +46,11 @@ function ValidateSignUp(){
                 this.password.style.borderColor = 'red';
                 reject(Error("Password must be atleast 8 characters long"));
             }
-            else if(this.password.value.charAt(0).search(/[A-B]/g) === -1){
-                this.errors.style.display = "flex";
-                this.password.style.borderColor = 'red';
-                reject(Error("Password must start with an uppercase letter"));
-            }
+            // else if(this.password.value.charAt(0).search(/[A-B]/g) === -1){
+            //     this.errors.style.display = "flex";
+            //     this.password.style.borderColor = 'red';
+            //     reject(Error("Password must start with an uppercase letter"));
+            // }
             else if(this.password.value.search(/[0-9]/gi) === -1){
                 this.errors.style.display = "flex";
                 this.password.style.borderColor = 'red';
@@ -133,17 +135,65 @@ function ValidateSignUp(){
 
 
 function login(){
+    this.email = document.querySelector('#loginEmail');
+    this.password = document.querySelector('#loginPassword');
+    this.errorsBody = document.querySelector('#loginError');
+    
+    //Check if all inputs has been filled out
 
+    this.checkEmpty = () => {
+        if(this.email.value === "" || this.password.value === ""){
+            this.errorsBody.style.display = "flex";
+            this.errorsBody.innerHTML = "You need to rovide both your email and password to login";
+            return true;
+        }
+    }
+    this.login = () => {
+        if(!this.checkEmpty()){
+            fetch('http://localhost:5000/api/login', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer 12344"  
+                },
+                body: JSON.stringify({
+                    email: this.email.value,
+                    password: this.password.value
+                })
+            })
+            .then(data => {
+                return data.json();
+            })
+            .then(data => {
+                if(data && data.payload.token){
+                    //store the token gotten from login in localStorage
+                    localStorage.setItem('t_b_tok', data.payload.token);
+                    console.log("hellooooooooo")
+                }
+                console.log(data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
+    }
 }
 
 
 
 document.addEventListener('DOMContentLoaded', () => {
     const signUpBtn = document.querySelector('#signUpBtn');
+    const loginUpBtn = document.querySelector('#loginBtn');
 
     //create account for user
     signUpBtn.addEventListener('click', () => {
-        const validate = new ValidateSignUp();
-        validate.signUp();
+        const validateSignUp = new ValidateSignUp();
+        validateSignUp.signUp();
     });
+
+    //log users in
+    loginUpBtn.addEventListener('click', () => {
+        const validateLogin = new login();
+        validateLogin.login();
+    })
 });

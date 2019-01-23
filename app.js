@@ -7,7 +7,7 @@ const mongooseConnect = require('./config/mongo'); //connect to mongo database
 
 const signupAuth = require('./auth/signup');
 
-const signinAuth = require('./auth/signin');
+const signinAuth = require('./auth/signin'); 
 
 const userRoute = require('./routes/users');
 
