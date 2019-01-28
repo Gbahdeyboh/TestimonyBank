@@ -19,7 +19,7 @@ app.post('/signup', (req, res, next) => {
                 payload: null, 
                 error: {
                     code: 550,
-                    message: "The email account is already registered with anothe account"
+                    message: "The email account is already registered with another account"
                 }
             });
         }
@@ -44,10 +44,9 @@ app.post('/signup', (req, res, next) => {
                     _id: profile.id,
                     created: profile.created
                 }, process.env.JWT_KEY, {expiresIn: '30d'});
-                res.json({
+                res.status(200).json({
                     success: true,
                     payload: {
-                        message: "New user succesfully created",
                         data: profile,
                         token
                     }

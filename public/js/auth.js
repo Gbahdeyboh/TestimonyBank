@@ -88,7 +88,8 @@ function ValidateSignUp(){
         .then(message => {
             this.errors.style.display = 'none';
             this.signUpBtn.disabled = true; //disable sign up button
-            //Send request to create account
+            //Send request to create account but display loader first
+            document.querySelector('#signUpLoader').style.display = "block";
             fetch('http://localhost:5000/api/signup', {
                 method: 'POST',
                 headers: {
@@ -105,8 +106,7 @@ function ValidateSignUp(){
                 return data.json();
              })
             .then(data => {
-                console.log(data);
-                console.log("data success is ", data.success);
+                document.querySelector('#signUpLoader').style.display = "none";
                 setTimeout(() => {
                     this.signUpBtn.disabled = false;
                     if(!data.success){
@@ -117,10 +117,12 @@ function ValidateSignUp(){
                     }
                     else{
                         //display the profile page
+                        localStorage.setItem('t_b_tok', data.payload.token); 
+                        localStorage.setItem('t_b_data', JSON.stringify(data));
+                        window.location.assign('./testimony.html');
                         this.errors.style.display = "none";
                     }
-                }, 1000); //enable sign up button button
-                localStorage.setItem('t_b_tok', data.payload.token);
+                }, 500); //enable sign up button button
             })
             .catch(err => {
                 console.log(err);
@@ -133,7 +135,7 @@ function ValidateSignUp(){
     }
 }
 
-
+//Log users account in
 function login(){
     this.email = document.querySelector('#loginEmail');
     this.password = document.querySelector('#loginPassword');
@@ -148,8 +150,11 @@ function login(){
             return true;
         }
     }
+    //Attempt to log user in when all fields has been filled
     this.login = () => {
         if(!this.checkEmpty()){
+            //Show loader when request is sent
+            document.querySelector('#loginLoader').style.display = "block";
             fetch('http://localhost:5000/api/login', {
                 method: 'POST',
                 headers: {
@@ -165,12 +170,17 @@ function login(){
                 return data.json();
             })
             .then(data => {
-                if(data && data.payload.token){
+                document.querySelector('#loginLoader').style.display = "none ";
+                if(data && data.payload){
                     //store the token gotten from login in localStorage
-                    localStorage.setItem('t_b_tok', data.payload.token);
-                    console.log("hellooooooooo")
+                    localStorage.setItem('t_b_tok', data.payload.token); 
+                    localStorage.setItem('t_b_data', JSON.stringify(data));
+                    window.location.assign('./testimony.html');   
                 }
-                console.log(data);
+                else{
+                    this.errorsBody.style.display = "flex";
+                    this.errorsBody.innerHTML = data.error.message;
+                }
             })
             .catch(err => {
                 console.log(err);
@@ -178,6 +188,8 @@ function login(){
         }
     }
 }
+
+
 
 
 
@@ -195,5 +207,5 @@ document.addEventListener('DOMContentLoaded', () => {
     loginUpBtn.addEventListener('click', () => {
         const validateLogin = new login();
         validateLogin.login();
-    })
+    });
 });

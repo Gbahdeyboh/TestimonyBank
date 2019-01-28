@@ -61,7 +61,9 @@ function verifyPassword(req, res, next){
                     payload: {
                         message: "User successfully logged in",
                         data: {
-                            email: req.user[0].email
+                            name: req.user[0].name,
+                            email: req.user[0].email,
+                            number: req.user[0].number
                         },
                         token
                     }

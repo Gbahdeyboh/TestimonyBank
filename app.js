@@ -11,6 +11,8 @@ const signinAuth = require('./auth/signin');
 
 const userRoute = require('./routes/users');
 
+const testimoniesRoute = require('./routes/testimony');
+
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use(express.json());
@@ -30,6 +32,7 @@ app.use((req, res, next) => {
 app.use('/api', signupAuth);
 app.use('/api', signinAuth);
 app.use('/api', userRoute);
+app.use('/api', testimoniesRoute);
 
 const crypto = require('crypto'); 
 

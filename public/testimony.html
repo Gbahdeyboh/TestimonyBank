@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="author" description="Bello Gbadebo">
+        <meta name="TestimonyBank" description="A simple web app to store peoples testimonies">
+        <title>Document</title>  
+        <!--stylesheets-->
+        <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="css/testimony.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" media="all" /> 
+        <link rel="stylesheet" type="text/css" href="css/google_font/base.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="css/icons/icon_set_1.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="css/icons/icon_set_2.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="css/icons/icon_set_all.min.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="css/Lato/latofonts.css" media="all" />
+        <!--Scripts-->
+        <script type="text/javascript" language="jaavscript" src="js/testimony.js"></script>
+        <script type="text/javascript" language="jaavscript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" language="jaavscript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" language="jaavscript" src="js/fontawesome-all.js"></script>
+    </head>
+    <body>
+        <div class="" id="body">
+            <section>
+                <div class="row z-depth-2" id="header">
+                    <div class="col s3 m3 l2 fullHeight displayFlexLeft">
+                        <img src="images/MFM-logo.gif" class="margin"  id="firstPageBodyHeadLogo"/>
+                    </div>
+                    <div class="col s6 m6 l8 fullHeight displayFlex padBottom">
+                        <h3 id="headerName">Testimony Bank</h3>
+                    </div>
+                    <div class="col s3 m3 l2 fullHeight displayFlex">
+                        <div class="row fullHeight fullWidth" id="iconBody">
+                            <div class="col s8 m8 l8 fullHeight displayFlexRight hide-on-small-only" id="userName"></div>
+                            <div class="col s4 m4 l4 fullHeight displayFlex">
+                                <img src="images/liberated_woman.jpg" alt_"image_here" class="userPicture"/>
+                                <i class="fas fa-caret-down grey-text"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="z-depth-1 white red" id="headerOptionBody">
+                    <div class="fullWidth displayFlexRight padRight padTop" id="headerOptionsClose">
+                        <i class="fas fa-times fa-xs"></i>
+                    </div>
+                    <div class="headerOpt row">
+                        <div class="col s4 m4 l4 fullHeight displayFlexLeft padLeft">
+                            <img src="images/liberated_woman.jpg" alt_"image_here" class="userPicture"/>
+                        </div>
+                        <div class="col s8 m8 l8 fullHeight pad">
+                            <div id="userDetailName">Bello Gbadebo</div>
+                            <div id="userEmail">Bello Gbadebo</div>
+                        </div>
+                    </div>
+                    <div class="headerOpt displayFlex">
+                        <div class="waves-effect displayFlex" id="logout" onclick="logout()">logout</div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="row searchBody">
+                    <div class="col s12 m8 l10 displayFlex searchBody">                
+                        <input class="browser-default z-depth-2" type="text" placeholder="Search for a testimony... use the posters name or testimony title" id="searchInput" />
+                    </div>
+                    <div class="col  s12 m4 l2 fullHeight displayFlex">
+                        <div class="displayFlex waves-effect waves-light" id="testifyBtn">Testify</div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="displayFlexColumn fullWidth pad">
+                    <h4>Testimonies</h4>
+                    <hr id="testimonyLine"/>
+                </div>
+            </section>
+            <section>
+                <div class="fullWidth green" id="testimonies">
+                    <!--
+                    <div class="testimonyBody z-depth-2">
+                        <div class="testimonyHead fullWidth displayFlex pad">How God gave me a baby boy at 56</div>
+                        <div class="testimonyStory">
+                                What shall we then say to these things? If God be for us, who can be against us?
+                                When our back was against the wall and it looked like all was over, menopause came knocking, when doctors said No, at the age of 54, then You God appeared and gave us twins (A boy and Girl).
+
+                                Here is a glaring evidence,  ........ (Read More....)<!--to lay credence to the fact that when God shows..... the incredulous is inevitable.
+                                
+                                The God that fetches water with basket just to disgrace the bucket, The One so big that he made the earth his footstool yet so small that he lives in the heart of men. Aja ma fi ti’bon se, Oba ajidara, Olugbeja, agbada gbururu, odogwu akataka, Ekwueme, Onye Ukwu, Osimiri atata, ebube dike na’ha, Omena mma’du, Ekwueme,
+                                akiikitan, agbanilagbatan, alagbadaina, Ogbeninijakeruobonija,Apataidigbolu, gbani gbani, arogund’ade, Ariroala , kiki ola, kiki Ogo, .. we worship you Lord.
+                                To everyone reading this testimony and expecting a miracle from God, The Lord shall suddenly come into His Temple and grant answers to your prayers in Jesus name, Amen.--><!--
+                        </div>
+                        <div class="testimonyOwner row">
+                            <div class="col s3 m3 l3 fullHeight displayFlex">
+                                <img src="images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
+                            </div>
+                            <div class="col s9 m9 l9 fullHeight">
+                                <div class="halfHeight displayFlexLeft">
+                                    Bello Gbadebo
+                                </div>
+                                <div class="halfHeight datePosted">Posted on Dec 13, 2018</div>
+                            </div>
+                        </div>
+                        <div class="testimonyAction row">
+                            <div class="col s4 m4 l4 fullHeight displayFlex"> 
+                                <i class="icon_heart_alt fa-2x testimonyIcon" title="like"></i>
+                                <span class="testimonyIconNumbers">276</span>
+                            </div>
+                            <div class="col s4 m4 l4 fullHeight displayFlex">
+                                    <i class="icon_comment_alt fa-2x testimonyIcon" title="comment"></i>
+                                    <span class="testimonyIconNumbers">302</span>
+                            </div>
+                            <div class="col s4 m4 l4 fullHeight displayFlex">
+                                <i class="fas fa-share fa-2x testimonyIcon" title="share"></i>
+                                <span class="testimonyIconNumbers">22</span>
+                            </div>
+                        </div>
+                    </div>
+                    //-->
+                </div>
+            </section>
+            
+            <section>
+                <div class="red" id="postTestimonyContainer">
+                    <div class="green z-depth-2 " id="postTestimonyBody">
+                        <div class="fullWidth row grey" id="postTestimonyBodyHead">
+                            <div class="col s10 m10 l10 fullHeight yellow">
+                                <div class="fullHeight fullWidth">
+                                    <div class="col s2 m2 l2 fullHeight displayFlexLeft padLeft">
+                                        <img src="images/liberated_woman.jpg" alt_"image_here" class="userPicture"/>
+                                    </div>
+                                    <div class="col s10 m10 l10 fullHeight padTop brown">
+                                        <div id="postUserName">Bello Gbadebo</div>
+                                        <div id="postUserEmail">gbahdeybohbello@gmail.com</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s2 m2 l2 fullHeight blue"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="" id="footer">
+            <section>
+                <div class="fullWidth" id="footer">
+                    <div class="fullWidth displayFlex pad" id="footerText">
+                        <h6>This project is completely opensource, want to <a id="linkToRepo" target="_blank" href="https://github.com/Gbahdeyboh/TestimonyBank">Contribute <i class="fab fa-github"></i></a> ?</h6>
+                    </div>
+                    <div class="displayFlexColumn" id="foot">
+                        <div class="halfHeight fullWidth displayFlex foo">&copy; 2019 Bello Gbadebo.</div>
+                        <div class="halfHeight fullWidth displayFlex foo">
+                            Built with &nbsp;
+                            <i class="fas fa-heart fa-lg red-text"></i> 
+                            &nbsp; in &nbsp; <u><a id="lagosLink" target="_blank" href="https://www.google.com/maps/place/Lagos/@6.5483768,3.1438711,11z/data=!3m1!4b1!4m5!3m4!1s0x103b8b2ae68280c1:0xdc9e87a367c3d9cb!8m2!3d6.5243793!4d3.3792057?hl=en">Lagos, Nigeria</a></u>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <!--Page overlay-->
+        <div id="overlay"></div>
+    </body>
+</html>

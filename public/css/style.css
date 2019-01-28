@@ -113,7 +113,7 @@ html{
 }
 
 #pageOverlay{
-    display: block;
+    display: none;
     position: fixed;
     top:0px;
     right: 0px;
@@ -292,6 +292,7 @@ html{
 }
 
 .testimonyIconNumbers{
+    font-family: 'LatoWebLight';
     font-size: 12px;
     color: lightgrey;
     margin-left: 1em;
@@ -371,7 +372,7 @@ blockquote{
 }
 
 #loginContainer{
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -499,7 +500,7 @@ blockquote{
 }
 
 #signUpBody{
-    height: 600px;
+    height: 620px;
     width: 300px;
     border-radius: 5px;
     background: white;
