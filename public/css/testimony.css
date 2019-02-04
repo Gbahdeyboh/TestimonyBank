@@ -2,7 +2,10 @@
     --red: rgb(223, 28, 28);
     --lightRed: rgb(223, 78, 78);
     --lighterRed: rgb(238, 116, 116);
+    --veryLightBlue: #e6eff8;
     --veryLightRed: rgb(226, 183, 183);
+    --circle-length: 151px;
+    --check-length: 36px;
 }
 
 #header{
@@ -128,9 +131,6 @@
     border: 2px solid var(--lighterRed);
 }
 
-.testimonyBody{
-    z-index: 1;
-}
 
 #testifyBtn{
     height: 50px;
@@ -158,8 +158,8 @@
     bottom: 0px;
     width: 100%;
     height: 100%;
-    background: white;
-    opacity: 0.8;
+    background: black;
+    opacity: 0.2 ;
     z-index: 2;
 }
 #postTestimonyContainer{
@@ -174,11 +174,32 @@
     width: 100%;
     height: 100%;
     z-index: 3;
+    animation: fadeIn 0.5s linear;
 }
-#postTestimonyBody{
+
+@keyframes fadeIn{
+    from{
+        opacity: 0;
+    }
+}
+
+#postTestimonyBody, #testimonyLoader{
     width: 600px;
-    height: 450px;
+    min-height: 450px;
     border-radius: 10px;
+    background: white;
+    max-height: 550px;
+}
+#testimonyLoader{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: absolute;
+    z-index: 2;
+    opacity: 0.8;
+    background: var(--veryLightBlue);
+    width: 600px!important;
 }
 #postTestimonyBodyHead, #postTestimonyBodyHead > div{
     height: 60px;
@@ -186,9 +207,159 @@
     border-top-left-radius: 10px;
 }
 
+#postTestimonyBodyHead{
+    border-bottom: 1px solid lightgrey;
+}
+
+#closePostTestimonyBody{
+    cursor: pointer;
+    color: grey;
+    transition: color .3s linear;
+}
+
+#closePostTestimonyBody:hover{
+    color: var(--lighterRed);
+}
+
+#postTestimonyTitleBody{
+    height: 100px;
+}
+
+#testimonyTitleInputBody{
+    width: 100%;
+    height: 60px;
+}
+
+#testimonyTitleInput{
+    width: 70%;
+    height: 45px;
+}
+
+.testimonyInput{
+    padding: 1em;
+    background: var(--veryLightBlue);
+    border: 1px solid lightgrey;
+    font-weight: lighter;
+    font-family: LatoWebLight;
+}
+
+#testimonyContentInputBody{
+    height: 160px;
+}
+
+#testimonyContentInput{
+    width: 100%;
+    height: 160px;
+}
+
+#postTestimonyBtnBody{
+    height: 77px;
+}
+#testimonyError{
+    display: none;
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    background: var(--veryLightRed);
+}
+
+
+
+
+
+
+@keyframes scaleAnimation {
+  0% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes drawCircle {
+  0% {
+    stroke-dashoffset: var(--circle-length);
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes drawCheck {
+  0% {
+    stroke-dashoffset: var(--check-length);
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#successAnimationCircle {
+  stroke-dasharray: var(--circle-length) var(--circle-length);
+  stroke: var(--lighterRed);
+}
+#successAnimationCheck {
+  stroke-dasharray: var(--check-length) var(--check-length);
+  stroke: var(--lighterRed);
+}
+
+#successAnimationResult {
+  fill: var(--lighterRed);
+  opacity: 0;
+}
+
+#successAnimation.animated {
+  animation: 1s ease-out 0s 1 both scaleAnimation;
+}
+
+
+#successAnimationCircle {
+    animation: 1s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCircle,
+               0.3s linear 0.9s 1 both fadeOut;
+  }
+  
+  #successAnimationCheck {
+    animation: 1s cubic-bezier(0.77, 0, 0.175, 1) 0s 1 both drawCheck,
+               0.3s linear 0.9s 1 both fadeOut;
+  }
+  
+  #successAnimationResult {
+    animation: 0.3s linear 0.9s both fadeIn;
+  }
+
+
+
+
 
 @media only screen and (max-width: 600px){
     #searchInput{
         width: 80%;
+    }
+    #postTestimonyBody{
+        width: 280px!important;
+    }
+    #testimonyLoader{
+        width: 280px!important;
     }
 }

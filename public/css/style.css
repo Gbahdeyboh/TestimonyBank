@@ -35,39 +35,39 @@ html{
 }
 
 .displayFlexColumn{
-    display: flex!important;
+    display: flex!important;;
     justify-content: center!important;
     align-items: center!important;
     flex-direction: column!important;
 }
 
 .displayFlexRow{
-    display: flex!important;
+    display: flex!important;;
     justify-content: center!important;
     align-items: center!important;
     flex-direction: row!important;
 }
 
 .displayFlexRight{
-    display: flex!important;
+    display: flex!important;;
     justify-content: flex-end!important;
     align-items: center!important;
 }
 
 .displayFlexLeft{
-    display: flex!important;
+    display: flex!important;;
     justify-content: flex-start!important;
     align-items: center!important;
 }
 
 .displayFlexTop{
-    display: flex!important;
+    display: flex!important;;
     justify-content: center!important;
     align-items: flex-start!important;
 }
 
 .displayFlexBottom{
-    display: flex!important;
+    display: flex!important;;
     justify-content: center!important;
     align-items: flex-end!important;
 }
@@ -121,8 +121,8 @@ html{
     bottom: 0px;
     width: 100%;
     height: 100%;
-    background: white;
-    opacity: 0.8;
+    background: black;
+    opacity: 0.2 ;
     z-index: 2;    
 }
 
@@ -292,10 +292,92 @@ html{
 }
 
 .testimonyIconNumbers{
-    font-family: 'LatoWebLight';
+    font-family: 'LatoWebBlack';
     font-size: 12px;
-    color: lightgrey;
+    color: grey;
     margin-left: 1em;
+}
+
+#testimonyContainerActive{
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0px;
+    right: 0px;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+}
+#testimonyBodyActive{
+    min-height: 100px;
+    width: 650px;
+    background: white;
+    margin: 2em;
+    border-radius: 10px;
+}
+#testimonyStoryActive{
+    min-height: 70px;
+    padding: 2em;
+    color: grey;
+    cursor: pointer;
+}
+
+#testimonyComments{
+    width: 100%;
+    height: 350px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+#commentsBody{
+    height: 70%;
+}
+
+#closeComment{
+    position: absolute;
+    top: 1em;
+    right: .5em;
+    cursor: pointer;
+    color: whitesmoke;
+    transition: color .3s linear;
+}
+
+#closeComment:hover{
+    color: var(--lightRed);
+}
+
+#postCommentBody{
+    height: 30%;
+}
+
+#commentBtn{
+    width: 150px;
+    height: 35px;
+    background: var(--lightRed);
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#commentInput{
+    width: 100%;
+    height: 70px;
+}
+
+#commentersImage{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+#testimonyLoading{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 350px!important;
 }
 
 #footer{

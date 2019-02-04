@@ -11,13 +11,15 @@
         <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/testimony.css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" media="all" /> 
+        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="all" />
         <link rel="stylesheet" type="text/css" href="css/google_font/base.css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/icons/icon_set_1.css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/icons/icon_set_2.css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/icons/icon_set_all.min.css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/Lato/latofonts.css" media="all" />
         <!--Scripts-->
+        <script type="text/javascript" language="jaavscript" src="js/display.js"></script>
         <script type="text/javascript" language="jaavscript" src="js/testimony.js"></script>
         <script type="text/javascript" language="jaavscript" src="js/jquery.min.js"></script>
         <script type="text/javascript" language="jaavscript" src="js/materialize.min.js"></script>
@@ -119,26 +121,121 @@
                         </div>
                     </div>
                     //-->
+                    <!--Testimony Loader-->
+                    <div class="fullWidth fullHeight" id="testimonyLoading">
+                        <div class="preloader-wrapper big active">
+                            <div class="spinner-layer spinner-red-only">
+                              <div class="circle-clipper left">
+                                <div class="circle"></div>
+                              </div><div class="gap-patch">
+                                <div class="circle"></div>
+                              </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                </div>
+                <!--Comment on a testimony container-->
+                <div class="" id="testimonyContainerActive">
+                    <div class="z-depth-2" id="testimonyBodyActive">
+                        <div class="testimonyHead fullWidth displayFlex pad">How God gave me a baby boy at 56</div>
+                        <div id="testimonyStoryActive">
+                                What shall we then say to these things? <!--If God be for us, who can be against us?
+                                When our back was against the wall and it looked like all was over, menopause came knocking, when doctors said No, at the age of 54, then You God appeared and gave us twins (A boy and Girl).
+
+                                Here is a glaring evidence,  ........ (Read More....)to lay credence to the fact that when God shows..... the incredulous is inevitable.
+                                
+                                The God that fetches water with basket just to disgrace the bucket, The One so big that he made the earth his footstool yet so small that he lives in the heart of men. Aja ma fi ti’bon se, Oba ajidara, Olugbeja, agbada gbururu, odogwu akataka, Ekwueme, Onye Ukwu, Osimiri atata, ebube dike na’ha, Omena mma’du, Ekwueme,
+                                akiikitan, agbanilagbatan, alagbadaina, Ogbeninijakeruobonija,Apataidigbolu, gbani gbani, arogund’ade, Ariroala , kiki ola, kiki Ogo, .. we worship you Lord.
+                                To everyone reading this testimony and expecting a miracle from God, The Lord shall suddenly come into His Temple and grant answers to your prayers in Jesus name, Amen.-->
+                        </div>
+                        <div class="testimonyOwner row">
+                            <div class="col s3 m2 l2 fullHeight displayFlex">
+                                <img src="images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
+                            </div>
+                            <div class="col s9 m10 l10 fullHeight">
+                                <div class="halfHeight displayFlexLeft">
+                                    Bello Gbadebo
+                                </div>
+                                <div class="halfHeight datePosted">Posted on Dec 13, 2018</div>
+                            </div>
+                        </div>
+                        <div class="testimonyAction row">
+                            <div class="col s4 m4 l4 fullHeight displayFlex"> 
+                                <i class="icon_heart_alt fa-2x testimonyIcon" title="like"></i>
+                                <span class="testimonyIconNumbers">276</span>
+                            </div>
+                            <div class="col s4 m4 l4 fullHeight displayFlex">
+                                    <i class="icon_comment_alt fa-2x testimonyIcon" title="comment"></i>
+                                    <span class="testimonyIconNumbers">302</span>
+                            </div>
+                            <div class="col s4 m4 l4 fullHeight displayFlex">
+                                <i class="fas fa-share fa-2x testimonyIcon" title="share"></i>
+                                <span class="testimonyIconNumbers">22</span>
+                            </div>
+                        </div>
+                        <div class="" id="testimonyComments">
+                            <div class="" id="commentsBody"></div>
+                            <div class="row" id="postCommentBody">
+                                <div class="col s10 m10 l10 fullHeight">
+                                    <div class="row fullHeight">
+                                        <div class="col s3 m2 l2 fullHeight displayFlex">
+                                            <img src="./images/liberated_woman.jpg" class="circle" id="commentersImage"/>
+                                        </div>
+                                        <div class="col s9 m10 m10 fullHeight displayFlex">
+                                            <textarea class="browser-default testimonyInput" id="commentInput"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col s2 m2 l2 displayFlex fullHeight">
+                                    <div class="displayFlex hide-on-small-only waves-effect waves-light" id="commentBtn">comment</div>
+                                    <i class="material-icons hide-on-med-and-up red-text">send</i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <i class="fas fa-times fa-lg" id="closeComment" onclick="closeTestimonyDetails()"></i>
                 </div>
             </section>
             
             <section>
-                <div class="red" id="postTestimonyContainer">
-                    <div class="green z-depth-2 " id="postTestimonyBody">
-                        <div class="fullWidth row grey" id="postTestimonyBodyHead">
-                            <div class="col s10 m10 l10 fullHeight yellow">
-                                <div class="fullHeight fullWidth">
-                                    <div class="col s2 m2 l2 fullHeight displayFlexLeft padLeft">
-                                        <img src="images/liberated_woman.jpg" alt_"image_here" class="userPicture"/>
-                                    </div>
-                                    <div class="col s10 m10 l10 fullHeight padTop brown">
-                                        <div id="postUserName">Bello Gbadebo</div>
-                                        <div id="postUserEmail">gbahdeybohbello@gmail.com</div>
-                                    </div>
-                                </div>
+                <div class="" id="postTestimonyContainer">
+                    <div class="z-depth-2 displayFlexColumn" id="postTestimonyBody">
+                        <div class="fullWidth row" id="postTestimonyBodyHead">
+                            <div class="col s10 m10 l10 fullHeight displayFlex">
+                                <h5>Share your testimony</h5>
                             </div>
-                            <div class="col s2 m2 l2 fullHeight blue"></div>
+                            <div class="col s2 m2 l2 fullHeight displayFlexRight padBottom">
+                                <i class="fas fa-times fa-xs" id="closePostTestimonyBody" onclick="closeTestifyPrompt()"></i>
+                            </div>
                         </div>
+                        <div class="fullWidth pad " id="postTestimonyTitleBody">
+                            <div class="fullWidth " id="postTestimonyTitle">Testimony title</div>
+                            <div class="fullWidth displayFlexLeft" id="testimonyTitleInputBody">
+                                <input type="text" class="browser-default testimonyInput" id="testimonyTitleInput" placeholder="Your testimony title"/>
+                            </div>
+                        </div>
+                        <div class="fullWidth pad" id="postTestimonyContentBody">
+                            <div class="fullWidth" id="postTestimonyContentTitle">Testimony</div>
+                            <div class="fullWidth" id="testimonyContentInputBody">
+                                <textarea class="browser-default testimonyInput" id="testimonyContentInput" placeholder="Type your testimony here..."></textarea>
+                            </div>
+                        </div>
+                        <div class="inputBody inputErrorBody" id="testimonyError">
+                            <!--Error message goes here-->Please fill in your testimony's title and content !!!
+                        </div>
+                        <div class="fullWidth pad displayFlexRight" id="postTestimonyBtnBody">
+                            <div class="waves-effect waves-light submitBtn displayFlex" id="shareTestimony">Share</div>
+                        </div>
+                    </div>
+                    <div class="pad center" id="testimonyLoader">
+                        <svg id="successAnimation" class="animated" xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 70 70">
+                            <path id="successAnimationResult" fill="#D8D8D8" d="M35,60 C21.1928813,60 10,48.8071187 10,35 C10,21.1928813 21.1928813,10 35,10 C48.8071187,10 60,21.1928813 60,35 C60,48.8071187 48.8071187,60 35,60 Z M23.6332378,33.2260427 L22.3667622,34.7739573 L34.1433655,44.40936 L47.776114,27.6305926 L46.223886,26.3694074 L33.8566345,41.59064 L23.6332378,33.2260427 Z"/>
+                            <circle id="successAnimationCircle" cx="35" cy="35" r="24" stroke="#979797" stroke-width="2" stroke-linecap="round" fill="transparent"/>
+                            <polyline id="successAnimationCheck" stroke="#979797" stroke-width="2" points="23 34 34 43 47 27" fill="transparent"/>
+                        </svg>
+                        <div>Thanks for sharing your testimony, may it be permanent in Jesus name, Amen!</div>
                     </div>
                 </div>
             </section>
@@ -146,7 +243,7 @@
         <div class="" id="footer">
             <section>
                 <div class="fullWidth" id="footer">
-                    <div class="fullWidth displayFlex pad" id="footerText">
+                    <div class="fullWidth displayFlex pad center" id="footerText">
                         <h6>This project is completely opensource, want to <a id="linkToRepo" target="_blank" href="https://github.com/Gbahdeyboh/TestimonyBank">Contribute <i class="fab fa-github"></i></a> ?</h6>
                     </div>
                     <div class="displayFlexColumn" id="foot">

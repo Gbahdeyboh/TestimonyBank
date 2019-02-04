@@ -1,7 +1,13 @@
+/**!
+* Testimony Bank by @Gbahdeyboh - "web link"
+* Licence - 
+*/
+
 /*=======================================
 | Account creation and login validations   |
 =========================================*/
 function ValidateSignUp(){
+    this.disp = new DisplayStuffs();
     this.name = document.querySelector('#signUpFullName');
     this.email = document.querySelector('#signUpEmail'); 
     this.number = document.querySelector('#signUpNumber'); 
@@ -14,7 +20,7 @@ function ValidateSignUp(){
     this.checkEmpty = () => {
         return new Promise((resolve, reject) => {
             if(this.name.value === "" || this.email.value === "" || this.password.value === "" || this.passwordConfirm.value === ""){
-                this.errors.style.display = "flex";
+                this.disp.displayFlexStuff(this.errors);
                 reject(Error("All compulsory fields must be filled out!"))
             }
             else{
@@ -27,7 +33,7 @@ function ValidateSignUp(){
     this.checkEmail = () => {
         return new Promise((resolve, reject) => {
             if(this.email.value.search(/@/gi) === -1 || this.email.value.search(/./gi) === -1 ){
-                this.errors.style.display = "flex";
+                this.disp.displayFlexStuff(this.errors);
                 this.email.style.borderColor = 'red';
                 reject(Error("Invalid email format provided"));
             }
@@ -42,7 +48,7 @@ function ValidateSignUp(){
     this.checkPassword = () => {
         return new Promise((resolve, reject) => {
             if(this.password.value.length < 8){
-                this.errors.style.display = "flex";
+                this.disp.displayFlexStuff(this.errors);
                 this.password.style.borderColor = 'red';
                 reject(Error("Password must be atleast 8 characters long"));
             }
@@ -52,7 +58,7 @@ function ValidateSignUp(){
             //     reject(Error("Password must start with an uppercase letter"));
             // }
             else if(this.password.value.search(/[0-9]/gi) === -1){
-                this.errors.style.display = "flex";
+                this.disp.displayFlexStuff(this.errors);
                 this.password.style.borderColor = 'red';
                 reject(Error("Password must contain atleast a number"));
             }
@@ -66,7 +72,7 @@ function ValidateSignUp(){
     this.confirmPassword = () => {
         return new Promise((resolve, reject) => {
             if(this.password.value !== this.passwordConfirm.value){
-                this.errors.style.display = "flex";
+                this.disp.displayFlexStuff(this.errors);
                 this.password.style.borderColor = 'red';
                 this.passwordConfirm.style.borderColor = 'red';
                 reject(Error("Passwords do not match"));
@@ -86,7 +92,7 @@ function ValidateSignUp(){
     this.signUp = () => {
         this.validateAll()
         .then(message => {
-            this.errors.style.display = 'none';
+            this.disp.hideStuff(this.errors);
             this.signUpBtn.disabled = true; //disable sign up button
             //Send request to create account but display loader first
             document.querySelector('#signUpLoader').style.display = "block";
@@ -111,7 +117,7 @@ function ValidateSignUp(){
                     this.signUpBtn.disabled = false;
                     if(!data.success){
                         //display the error message
-                        this.errors.style.display = "flex";
+                        this.disp.displayFlexStuff(this.errors);
                         this.email.style.borderColor = 'red';
                         this.errors.innerHTML = `Error: ${data.error.message}`;
                     }
@@ -140,13 +146,14 @@ function login(){
     this.email = document.querySelector('#loginEmail');
     this.password = document.querySelector('#loginPassword');
     this.errorsBody = document.querySelector('#loginError');
+    this.disp = new DisplayStuffs();
     
     //Check if all inputs has been filled out
 
     this.checkEmpty = () => {
         if(this.email.value === "" || this.password.value === ""){
-            this.errorsBody.style.display = "flex";
-            this.errorsBody.innerHTML = "You need to rovide both your email and password to login";
+            this.disp.displayFlexStuff(this.errorsBody);
+            this.errorsBody.innerHTML = "You need to provide both your email and password to login";
             return true;
         }
     }
@@ -178,7 +185,7 @@ function login(){
                     window.location.assign('./testimony.html');   
                 }
                 else{
-                    this.errorsBody.style.display = "flex";
+                    this.errorsBody.style.display = 'flex';
                     this.errorsBody.innerHTML = data.error.message;
                 }
             })

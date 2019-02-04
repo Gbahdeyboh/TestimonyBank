@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const customEnv = require('custom-env').env();
+const cors = require('cors');
  
 const mongooseConnect = require('./config/mongo'); //connect to mongo database
 

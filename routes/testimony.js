@@ -54,7 +54,7 @@ app.post('/addTestimony', verifyToken, (req, res, next) => {
             }
         })
     })
-    .catch(err =>{
+    .catch(err => {
         res.status(400).json({
             success: false,
             payload: null,
@@ -119,5 +119,4 @@ function verifyToken(req, res, next){
         });
     }
 }
-
 module.exports = app;

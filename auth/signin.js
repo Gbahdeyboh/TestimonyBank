@@ -7,9 +7,18 @@ const jwt = require('jsonwebtoken');
 const usersModel = require('../models/users');
 
 app.post('/login', verifyEmail, verifyPassword, (req, res, next) => {
-    // const password = req.body.password;
-    // const hashedPassword = hash(password);
-    // res.send(`The request header is ${req.tokenId}`);
+    //Remove the password details from the object before sending to client
+    delete req.user.password.salt; 
+    delete req.user.password.password;
+    delete req.user.password;
+    res.status(200).json({
+        success: true,
+        payload: {
+            message: "User successfully logged in",
+            data: req.user,
+            token: req.token
+        }
+    })
 });
 
 
@@ -18,7 +27,7 @@ function verifyEmail(req, res, next){
     .then(user => {
         if(user.length >= 0 && user[0] !== undefined){
             req.salt = user[0].password.salt; //Append the salt of the user to the request object
-            req.user = user; //Append user details to request object
+            req.user = user[0]; //Append user details to request object
             next(); //call next  middleware
         }
         else{
@@ -40,14 +49,14 @@ function verifyEmail(req, res, next){
 function verifyPassword(req, res, next){
     const password = req.body.password;
     const hashedPassword = hash(password, req.salt); //hash the user provided password with the gotten salt
-    if(req.user[0].password.password === hashedPassword.hash){
+    if(req.user.password.password === hashedPassword.hash){
         //Generate a login token for the user
         jwt.sign({
-            name: req.user[0].name,
-            email: req.user[0].email,
-            number: req.user[0].number,
-            _id: req.user[0].id,
-            created: req.user[0].created
+            name: req.user.name,
+            email: req.user.email,
+            number: req.user.number,
+            _id: req.user.id,
+            created: req.user.created
         }, process.env.JWT_KEY, {expiresIn: '30d'}, (err, token) => {
             if(err){
                 res.json({
@@ -56,18 +65,8 @@ function verifyPassword(req, res, next){
                 })
             }
             else{
-                res.status(200).json({
-                    success: true,
-                    payload: {
-                        message: "User successfully logged in",
-                        data: {
-                            name: req.user[0].name,
-                            email: req.user[0].email,
-                            number: req.user[0].number
-                        },
-                        token
-                    }
-                })
+                req.token = token;
+                next();
             }
         });
     }
