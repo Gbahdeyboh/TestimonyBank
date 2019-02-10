@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <meta name="author" description="Bello Gbadebo">
         <meta name="TestimonyBank" description="A simple web app to store peoples testimonies">
-        <title>Document</title>  
+        <title>Testimony Bank</title>  
         <!--stylesheets-->
         <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/testimony.css" media="all" />
@@ -80,7 +80,7 @@
                 </div>
             </section>
             <section>
-                <div class="fullWidth green" id="testimonies">
+                <div class="fullWidth" id="testimonies">
                     <!--
                     <div class="testimonyBody z-depth-2">
                         <div class="testimonyHead fullWidth displayFlex pad">How God gave me a baby boy at 56</div>
@@ -138,45 +138,62 @@
                 </div>
                 <!--Comment on a testimony container-->
                 <div class="" id="testimonyContainerActive">
-                    <div class="z-depth-2" id="testimonyBodyActive">
-                        <div class="testimonyHead fullWidth displayFlex pad">How God gave me a baby boy at 56</div>
-                        <div id="testimonyStoryActive">
-                                What shall we then say to these things? <!--If God be for us, who can be against us?
-                                When our back was against the wall and it looked like all was over, menopause came knocking, when doctors said No, at the age of 54, then You God appeared and gave us twins (A boy and Girl).
-
-                                Here is a glaring evidence,  ........ (Read More....)to lay credence to the fact that when God shows..... the incredulous is inevitable.
-                                
-                                The God that fetches water with basket just to disgrace the bucket, The One so big that he made the earth his footstool yet so small that he lives in the heart of men. Aja ma fi ti’bon se, Oba ajidara, Olugbeja, agbada gbururu, odogwu akataka, Ekwueme, Onye Ukwu, Osimiri atata, ebube dike na’ha, Omena mma’du, Ekwueme,
-                                akiikitan, agbanilagbatan, alagbadaina, Ogbeninijakeruobonija,Apataidigbolu, gbani gbani, arogund’ade, Ariroala , kiki ola, kiki Ogo, .. we worship you Lord.
-                                To everyone reading this testimony and expecting a miracle from God, The Lord shall suddenly come into His Temple and grant answers to your prayers in Jesus name, Amen.-->
-                        </div>
-                        <div class="testimonyOwner row">
-                            <div class="col s3 m2 l2 fullHeight displayFlex">
-                                <img src="images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
-                            </div>
-                            <div class="col s9 m10 l10 fullHeight">
-                                <div class="halfHeight displayFlexLeft">
-                                    Bello Gbadebo
+                    <div class="" id="testimonyContainerActiveBody">
+                        <div class="z-depth-2" id="testimonyActiveLoader">
+                            <div class="preloader-wrapper big active">
+                                <div class="spinner-layer spinner-red-only">
+                                    <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                    </div><div class="gap-patch">
+                                    <div class="circle"></div>
+                                    </div><div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                    </div>
                                 </div>
-                                <div class="halfHeight datePosted">Posted on Dec 13, 2018</div>
                             </div>
                         </div>
-                        <div class="testimonyAction row">
-                            <div class="col s4 m4 l4 fullHeight displayFlex"> 
-                                <i class="icon_heart_alt fa-2x testimonyIcon" title="like"></i>
-                                <span class="testimonyIconNumbers">276</span>
+                        <div class="z-depth-2" id="testimonyBodyActive">
+                            <div class="testimonyHead fullWidth displayFlex pad" id="testimonyActiveHead">How God gave me a baby boy at 56</div>
+                            <div id="testimonyStoryActive">
+                                    What shall we then say to these things? <!--If God be for us, who can be against us?
+                                    When our back was against the wall and it looked like all was over, menopause came knocking, when doctors said No, at the age of 54, then You God appeared and gave us twins (A boy and Girl).
+
+                                    Here is a glaring evidence,  ........ (Read More....)to lay credence to the fact that when God shows..... the incredulous is inevitable.
+                                    
+                                    The God that fetches water with basket just to disgrace the bucket, The One so big that he made the earth his footstool yet so small that he lives in the heart of men. Aja ma fi ti’bon se, Oba ajidara, Olugbeja, agbada gbururu, odogwu akataka, Ekwueme, Onye Ukwu, Osimiri atata, ebube dike na’ha, Omena mma’du, Ekwueme,
+                                    akiikitan, agbanilagbatan, alagbadaina, Ogbeninijakeruobonija,Apataidigbolu, gbani gbani, arogund’ade, Ariroala , kiki ola, kiki Ogo, .. we worship you Lord.
+                                    To everyone reading this testimony and expecting a miracle from God, The Lord shall suddenly come into His Temple and grant answers to your prayers in Jesus name, Amen.-->
                             </div>
-                            <div class="col s4 m4 l4 fullHeight displayFlex">
-                                    <i class="icon_comment_alt fa-2x testimonyIcon" title="comment"></i>
-                                    <span class="testimonyIconNumbers">302</span>
+                            <div class="testimonyOwner row">
+                                <div class="col s3 m2 l2 fullHeight displayFlex">
+                                    <img src="images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
+                                </div>
+                                <div class="col s9 m10 l10 fullHeight">
+                                    <div class="halfHeight displayFlexLeft" id="testimonyActiveName">
+                                        Bello Gbadebo
+                                    </div>
+                                    <div class="halfHeight datePosted" id="tADatePosted">Posted on Dec 13, 2018</div>
+                                </div>
                             </div>
-                            <div class="col s4 m4 l4 fullHeight displayFlex">
-                                <i class="fas fa-share fa-2x testimonyIcon" title="share"></i>
-                                <span class="testimonyIconNumbers">22</span>
+                            <div class="testimonyAction row">
+                                <div class="col s4 m4 l4 fullHeight displayFlex"> 
+                                    <i class="icon_heart_alt fa-2x testimonyIcon" data-id="" title="like" id="likeIcon" onclick="likeTestimony(this)"></i>
+                                    <span class="testimonyIconNumbers" id="likesNo">
+                                        <ul id="likesList2" class="z-depth-1">
+                                            
+                                        </ul>
+                                            <span id="likes">223</span>
+                                    </span>
+                                </div>
+                                <div class="col s4 m4 l4 fullHeight displayFlex">
+                                        <i class="icon_comment_alt fa-2x testimonyIcon" title="comment"></i>
+                                        <span class="testimonyIconNumbers" id="comments">302</span>
+                                </div>
+                                <div class="col s4 m4 l4 fullHeight displayFlex">
+                                    <i class="fas fa-share fa-2x testimonyIcon" title="share"></i>
+                                    <span class="testimonyIconNumbers" id="shares">22</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="" id="testimonyComments">
-                            <div class="" id="commentsBody"></div>
                             <div class="row" id="postCommentBody">
                                 <div class="col s10 m10 l10 fullHeight">
                                     <div class="row fullHeight">
@@ -189,8 +206,69 @@
                                     </div>
                                 </div>
                                 <div class="col s2 m2 l2 displayFlex fullHeight">
-                                    <div class="displayFlex hide-on-small-only waves-effect waves-light" id="commentBtn">comment</div>
-                                    <i class="material-icons hide-on-med-and-up red-text">send</i>
+                                    <!--Display send Button on large screens-->
+                                    <div class="displayFlex hide-on-small-only waves-effect waves-light" id="commentBtn" onclick="comment()">comment</div>
+                                    <!--Display send Icon on mobile devices-->
+                                    <i class="material-icons hide-on-med-and-up red-text" onclick="comment()">send</i>
+                                </div>
+                            </div>
+                            <div class="" id="testimonyComments">
+                                <div class="" id="commentsBody">
+                                    <!-- <div class="commentBody glow row">
+                                        <div class="col s4 m2 l2 fullHeight displayFlexColumn">
+                                            <img src="./images/liberation.jpg" alt="profile_image" class="circle profileImage" />
+                                            <hr class="profileRule"/>
+                                        </div>
+                                        <div class="col s8 m10 l10 fullHeight">
+                                            <div class="commentersName fullWidth displayFlexLeft">Bello Gbadebo</div>
+                                            <div class="commentersComment displayFlexLeft">
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="commentBody glow row">
+                                        <div class="col s4 m2 l2 fullHeight displayFlex">
+                                            <img src="./images/liberation.jpg" alt="profile_image" class="circle profileImage" />
+                                        </div>
+                                        <div class="col s8 m10 l10 fullHeight">
+                                            <div class="commentersName fullWidth displayFlexLeft">Bello Gbadebo</div>
+                                            <div class="commentersComment displayFlexLeft">
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="commentBody glow row">
+                                        <div class="col s4 m2 l2 fullHeight displayFlex">
+                                            <img src="./images/liberation.jpg" alt="profile_image" class="circle profileImage" />
+                                        </div>
+                                        <div class="col s8 m10 l10 fullHeight">
+                                            <div class="commentersName fullWidth displayFlexLeft">Bello Gbadebo</div>
+                                            <div class="commentersComment displayFlexLeft">
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                                What is this oooo
+                                            </div>
+                                        </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>

@@ -33,13 +33,12 @@ const TestimoniesSchema = new mongoose.Schema({
         default: '' /*To be later filled with the default image url*/
     },
     likes: {
-        type: Number,
+        type: Array,
         default: 0,
         trim: true
     },
     comments: {
-        type: Number,
-        default: 0,
+        type: Array,
         trim: true
     },
     shares: {

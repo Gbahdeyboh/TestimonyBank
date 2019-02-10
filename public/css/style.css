@@ -232,7 +232,7 @@ html{
 }
 
 #testimonies{
-    min-height: 400px;
+    min-height: 100px;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -263,12 +263,17 @@ html{
 }
 
 .testimonyHead{
-    padding-top: 2em!important;
+    padding-top: 1em!important;
     height: 60px;
     text-align: center;
     font-size: 1.3em;
     font-weight: bolder;
     font-family: sans-serif!important;
+}
+
+#testimonyActiveHead{
+    font-size: 1.3em;
+    font-family: 'latoWebHeavy'
 }
 
 .testimonyStory{
@@ -300,46 +305,109 @@ html{
 
 #testimonyContainerActive{
     display: none;
-    justify-content: center;
-    align-items: center;
     position: fixed;
     top: 0px;
     right: 0px;
     left: 0px;
     bottom: 0px;
     width: 100%;
-    height: 100%;
     z-index: 3;
+    overflow-y: scroll;
+}
+#testimonyContainerActiveBody{
+    position: relative!important;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #testimonyBodyActive{
-    min-height: 100px;
+    min-height: 50px!important;
     width: 650px;
     background: white;
     margin: 2em;
     border-radius: 10px;
+    display: none;
+}
+#testimonyActiveLoader{
+    width: 650px;
+    height: 450px;
+    background: white;
+    position: relative;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 #testimonyStoryActive{
     min-height: 70px;
     padding: 2em;
-    color: grey;
+    font-size: 1.5em;
+    font-weight: lighter;
+    font-family: 'latoWeb';
+    opacity: 0.8;
     cursor: pointer;
 }
 
 #testimonyComments{
     width: 100%;
-    height: 350px;
+    min-height: 250px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
 
 #commentsBody{
-    height: 70%;
+    min-height: 150px;
+    padding: 2em;
+}
+.commentBody.row{
+    min-height: 40px!important;
+    margin: 1em!important;
+    padding-bottom: .5em;
+}
+
+.glow{
+    animation: glow 7s linear;
+}
+
+.profileRule{
+    width: 10px;
+    height: 100%;
+    background: green;
+    border: 0px;
+}
+
+@keyframes glow{
+    from{
+        background: var(--veryLightBlue);
+    } 
+}
+
+.profileImage{
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
+
+.commentersName{
+    height: 30px;
+    font-family: 'latoWebBold';
+    font-size: 1em;
+}
+
+
+.commentersComment{
+    min-height: 30px;
+    font-family: 'latoWeb';
+    font-size: 14px;
 }
 
 #closeComment{
-    position: absolute;
+    position: fixed;
     top: 1em;
-    right: .5em;
+    right: 1em;
     cursor: pointer;
     color: whitesmoke;
     transition: color .3s linear;
@@ -350,7 +418,7 @@ html{
 }
 
 #postCommentBody{
-    height: 30%;
+    height: 100px;
 }
 
 #commentBtn{
@@ -379,6 +447,57 @@ html{
     align-items: center;
     height: 350px!important;
 }
+
+.liked{
+    color: #ed4956;
+    animation: scaleIt .5s linear
+}
+@keyframes scaleIt{
+    50%{
+        transform: scale(1.3);
+    }
+}
+
+#likesNo:hover #likesList{
+    color:  lightgrey;
+    display: block;
+}
+
+#likesNo:hover #likesList2{
+    color:  lightgrey;
+    display: block;
+}
+
+#likesList, #likesList2{
+    display: none;
+    position: absolute;
+    width: 150px;
+    min-height: 20px;
+    max-height: 200px;
+    background: rgb(49, 48, 48);
+    border-radius: 10px;
+    color: white;
+    padding: 1em;
+    overflow-y: scroll;
+}
+
+#likesList::-webkit-scrollbar, #likesList2::-webkit-scrollbar {
+    width: 0px;
+    height: .2px;
+}
+#likesList::-webkit-scrollbar-track, #likesList2::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+#likesList::-webkit-scrollbar-thumb, #likesList2::-webkit-scrollbar-thumb {
+    background-color: lightgrey;
+}
+
+
+#likesList > li{
+    margin-bottom: .7em;
+}
+
 
 #footer{
     height: 100px;
@@ -642,5 +761,11 @@ blockquote{
     }
     #bibleVerse{
         padding-right: 3em!important;
+    }
+    #testimonyLoader, #testimonyActiveLoader{
+        width: 320px!important;
+    }
+    #testimonyStoryActive{
+        font-size: 1.2em!important;
     }
 }
