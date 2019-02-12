@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate');
 
 const TestimoniesSchema = new mongoose.Schema({
     postersId: {
@@ -47,5 +48,7 @@ const TestimoniesSchema = new mongoose.Schema({
         trim: true
     }
 });
+
+TestimoniesSchema.plugin(mongoosePaginate);
 
 module.exports = new mongoose.model('Testimonies', TestimoniesSchema);

@@ -263,6 +263,25 @@
     background: var(--veryLightRed);
 }
 
+#searchResults{
+    display: none!important;
+    min-height: 70px;
+    width: 84%;
+    position: absolute;
+    top: 12.3em;
+    z-index: 2;
+}
+
+#searchResultBody{
+    width: 85%;
+    min-height: 70px;
+    border-radius: 5px;
+    background: white;
+}
+
+#searchHeader{
+    height: 60px;
+}
 
 
 

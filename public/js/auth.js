@@ -96,7 +96,7 @@ function ValidateSignUp(){
             this.signUpBtn.disabled = true; //disable sign up button
             //Send request to create account but display loader first
             document.querySelector('#signUpLoader').style.display = "block";
-            fetch('http://localhost:9500/api/signup', {
+            fetch('http://localhost:8500/api/signup', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json" 
@@ -162,7 +162,7 @@ function login(){
         if(!this.checkEmpty()){
             //Show loader when request is sent
             document.querySelector('#loginLoader').style.display = "block";
-            fetch('http://localhost:9500/api/login', {
+            fetch('http://localhost:8500/api/login', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",

@@ -51,11 +51,26 @@ function loadUserData(){
 }
 
 
-//Load all testimonies in batch
-window.onload = () => {
+/**
+ * @desc Load all the testimonies in batches as the user scrolls
+ * @param {Number} page - Gives the number of times data has been loaded
+ */
+function loadTestimonyData(page){
     const token = localStorage.getItem('t_b_tok');
-    fetch('http://localhost:9500/api/testimony/get', {
-        method: 'POST',
+    document.querySelector('#testimonyObserver').innerHTML = `
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-red-only">
+                <div class="circle-clipper left">
+                    <div class="circle"></div>
+                    </div><div class="gap-patch">
+                    <div class="circle"></div>
+                    </div><div class="circle-clipper right">
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    `; //show loading animation
+    fetch(`http://localhost:8500/api/testimony/get?page=${page}`, {
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Bearer ${token}`
@@ -65,7 +80,13 @@ window.onload = () => {
         return data.json();
     })
     .then(data => {
+        if(!data.success){
+            console.log("No more data to load");
+            document.querySelector('#testimonyObserver').innerHTML = '';
+            return;
+        }
         let testimonyWrapper = document.querySelector('#testimonies');
+        console.log(data);
         const testimonies = data.payload.data;
         for(let i = 0; i < testimonies.length; i++){
             //Format the date posted
@@ -110,7 +131,7 @@ window.onload = () => {
                             </span>
                         </div>
                         <div class="col s4 m4 l4 fullHeight displayFlex">
-                                <i class="icon_comment_alt fa-2x testimonyIcon" title="comment"></i>
+                                <i class="icon_comment_alt fa-2x testimonyIcon" title="comment" data-id="${testimonies[i]._id}" onclick="newComment(this)"></i>
                                 <span class="testimonyIconNumbers">${testimonies[i].comments.length}</span>
                         </div>
                         <div class="col s4 m4 l4 fullHeight displayFlex">
@@ -153,7 +174,7 @@ function testify(){
     const testimony = document.querySelector('#testimonyContentInput');
     const errorContainer = document.querySelector('#testimonyError');
     console.log("hellllooooooo");
-    title.value === "" || testimony.value === "" ? new DisplayStuffs().displayFlexStuff(errorContainer) : fetch('http://localhost:9500\/api/testimony/add', {
+    title.value === "" || testimony.value === "" ? new DisplayStuffs().displayFlexStuff(errorContainer) : fetch('http://localhost:8500\/api/testimony/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -193,7 +214,7 @@ function testify(){
  * @param {Object} dom - The html object element
  */
 
-function viewTestimonyDetails(dom){
+function viewTestimonyDetails(dom, isNew=false){
     const testimonyId = dom.dataset.id; //get the testimony id
     localStorage.setItem('t_b_id', testimonyId); //Store the viewed testiomonies Id
     const data = JSON.parse(localStorage.getItem('t_b_data')); //users data
@@ -210,15 +231,11 @@ function viewTestimonyDetails(dom){
     loader.style.display = 'flex';
     dataBody.style.display = 'none';
     //Fetch the testimony from the api
-    fetch('http://localhost:9500/api/testimony/get', {
-        method: 'POST',
+    fetch(`http://localhost:8500/api/testimony/get/${testimonyId}`, {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-            id : testimonyId
-        })
+        }
     })
     .then(data => {
         return data.json();
@@ -258,6 +275,10 @@ function viewTestimonyDetails(dom){
         dataBody.style.display = 'block';
         //load all the testimony comments
         loadComments(testimonyId);
+        //If comment icon is clicked, scroll to the comment section
+        if(isNew){
+            window.location.assign('#commentInput');
+        }
     })
     .catch(err => {
         console.log("The error is ", err);
@@ -268,9 +289,9 @@ function viewTestimonyDetails(dom){
 function likeTestimony(dom){
     const data = JSON.parse(localStorage.getItem('t_b_data')); //users data
     const token = data.payload.token;
-    const likerId = data.payload.data.name
-    const testimonyId = dom.dataset.id;
-    fetch('http://localhost:9500/api/testimony/like', {
+    const likerId = data.payload.data.name;
+    const testimonyId = localStorage.getItem('t_b_id');
+    fetch('http://localhost:8500/api/testimony/like', {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
@@ -286,9 +307,9 @@ function likeTestimony(dom){
     })
     .then(data => {
         //If testimony was liked successfully
-        // if(data.success){
+        if(data.success){
             liked(dom);
-        // }
+        }
         console.log(data);
     })
     .catch(err => {
@@ -314,7 +335,7 @@ function comment(){
     const commentersName = data.payload.data.name;
     const token = data.payload.token;
     const comment = document.querySelector('#commentInput');
-    comment.value === "" ? /*Don't send comment when empty*/ false : fetch('http://localhost:9500/api/testimony/comment/add', {
+    comment.value === "" ? /*Don't send comment when empty*/ false : fetch('http://localhost:8500/api/testimony/comment/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -333,15 +354,53 @@ function comment(){
     .then(response => {
         console.log("Success", response);
         comment.value = "";
-        renderComment(response.payload.data.commentersName, response.payload.data.comment, 'glow');
+        //Create a node to be inserted at the top of all comments when a new comment is made 
+        const commentBody = document.createElement('div'); //parent node
+        commentBody.setAttribute("class", "commentBody glow row");
+        const imgBody = document.createElement('div'); //subNode
+        imgBody.setAttribute('class', 'col s4 m2 l2 fullHeight displayFlex');
+        const img = document.createElement('img');
+        img.setAttribute('src', './images/liberation.jpg');
+        img.setAttribute('alt', 'profile_image');
+        img.setAttribute('class', 'circle profileImage');
+        imgBody.appendChild(img);
+        const commentersBody = document.createElement('div'); //sub Node
+        commentersBody.setAttribute('class', 'col s8 m10 l10 fullHeight');
+        const commentersNameBody = document.createElement('div');
+        commentersNameBody.setAttribute('class', 'commentersName fullWidth displayFlexLeft');
+        const commentersName = document.createTextNode(response.payload.data.commentersName);
+        commentersNameBody.appendChild(commentersName);
+        const commentersCommentBody = document.createElement('div');
+        commentersCommentBody.setAttribute('class', 'commentersComment displayFlexLeft');
+        const commentersComment = document.createTextNode(response.payload.data.comment);
+        commentersCommentBody.appendChild(commentersComment);
+        commentersBody.appendChild(commentersNameBody);
+        commentersBody.appendChild(commentersCommentBody);
+        commentBody.appendChild(imgBody);
+        commentBody.appendChild(commentersBody);
+        //Insert node as a new comment
+        document.querySelector('#commentsBody').insertBefore(commentBody, document.querySelectorAll('.commentBody')[0]);
     })
     .catch(err => {
         console.log("Error", err);
     });
 }
 
+async function newComment(dom){
+    //get the dom of the story which is used to view the selected testimony detail
+    const storyDom = await dom.parentNode.parentNode.parentNode.querySelector('.testimonyStory');
+    await viewTestimonyDetails(storyDom, true);
+}
+
 function loadComments(testimonyId){
-    fetch(`http://localhost:9500/api/testimony/comment/get/${testimonyId}`)
+    const data = JSON.parse(localStorage.getItem('t_b_data')); //users data
+    const token = data.payload.token;
+    fetch(`http://localhost:8500/api/testimony/comment/get/${testimonyId}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
     .then(data => {
         return data.json();
     })
@@ -381,6 +440,7 @@ function closeTestimonyDetails(){
 }
 
 
+let page = 1; //Icreases as more testimonies data are rendered to tthe viewport
 document.addEventListener('DOMContentLoaded', () => {
     const headerOptionButton = document.querySelector('#iconBody');
     const closeHeaderOptionButton = document.querySelector('#headerOptionsClose');
@@ -407,6 +467,25 @@ document.addEventListener('DOMContentLoaded', () => {
     shareTestimony.addEventListener('click', () => {
         testify();
     });
+
+    /**
+     * @desc Testimony Observer for loading more dynamic content has user scrolls
+     * @param {Number} page - The page currently displayed in the viewport
+     */
+    loadTestimonyData(page);
+     const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if(entry.intersectionRatio > 0){
+                console.log("entered viewport\n");
+                //call a function that loads dynamic data
+                page++;
+                console.log(page);
+                loadTestimonyData(page);
+            }
+        })
+     });
+
+     observer.observe(document.querySelector('#testimonyObserver'));
 
     // /*For testing, to be deleted*/
     // //display the testimony prompt

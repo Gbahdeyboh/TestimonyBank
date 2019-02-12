@@ -6,39 +6,25 @@ const jwt = require('jsonwebtoken');
 const testimoniesModel = require('../models/testimony');
 
 
-//Get posted comments
-app.get('/testimony/comment/get/:id', (req, res, next) => {
-    const id = req.params.id;
-    testimoniesModel.findById(id)
-    .then(response => {
-        res.status(200).json({
-            success: true,
-            payload: {
-                message: "Loaded comments successfully",
-                data: response.comments.reverse()
-            }
-        });
-    })
-    .catch(err => {
-        res.send(err);
-    })
-});
-
 //Get posted testimonies
-app.post('/testimony/get', (req, res, next) => {
-    /* 
-    * If no id is specified in request body
-    * Respond with all the testimonies
-    */
-    if(!req.body.id){
-        testimoniesModel.find()
+app.get('/testimony/get', verifyToken, (req, res, next) => {
+    const page = req.query.page || 1;
+    console.log("page ", page)
+    testimoniesModel.paginate({}, {page : parseInt(page), limit: parseInt(3)})
+    .then(response => {
+        const pageNo = response.pages //Number of pages
+        const lastPage = (pageNo + 1) - page; //select the page from behind to get most recently added records
+        console.log("pageNo ", pageNo);
+        testimoniesModel.paginate({}, {page : parseInt(lastPage), limit: parseInt(3)})
         .then(testimony => {
-            if(testimony.length > 0){
+            const pageNo = testimony.pages //Number of pages
+            const lastPage = (pageNo + 1) - page; //select the page from behind to get most recently added records
+            if(testimony.docs.length > 0){
                 res.status(200).json({
                     success: true,
                     payload: {
                         message: "Testimonies gotten successfully",
-                        data: testimony.reverse()
+                        data: testimony.docs.reverse()
                     }
                 });
             }
@@ -63,37 +49,73 @@ app.post('/testimony/get', (req, res, next) => {
                 }
             })
         });
-    }
-    else{
-        /*
-        * If an id is specified in request body
-        * Respond with the specified testimony
-        */
-        const id = req.body.id;
-        console.log("The id is ", id);
-        testimoniesModel.findById(id)
-        .then(data => {
-            res.status(200).json({
-                success: true,
-                payload: {
-                    message: `Got testimony with id ${id}`,
-                    data: data
-                }
-            });
+    })
+    .catch(err => {
+        res.status(400).json({
+            success: false,
+            payload: null,
+            err: {
+                message: `Could not fetch testimonies, something went wrong`,
+                error: err
+            }
         })
-        .catch(err => {
-            res.status(400).json({
-                success: false,
-                payload: null,
-                err: {
-                    message: `Could not get testimony with id ${id}`,
-                    error: err
-                }
-            })
-        });
-    }
-    
+    })
 });
+
+app.get('/testimony/get/:id', verifyToken, (req, res, next) => {
+    /*
+    * If an id is specified in request parameters
+    * Respond with the specified testimony
+    */
+    const id = req.params.id;
+    testimoniesModel.findById(id)
+    .then(data => {
+        res.status(200).json({
+            success: true,
+            payload: {
+                message: `Got testimony with id ${id}`,
+                data: data
+            }
+        });
+    })
+    .catch(err => {
+        res.status(400).json({
+            success: false,
+            payload: null,
+            err: {
+                message: `Could not get testimony with id ${id}`,
+                error: err
+            }
+        })
+    });
+});
+
+
+//Get posted comments
+app.get('/testimony/comment/get/:id', verifyToken, (req, res, next) => {
+    const id = req.params.id;   
+    testimoniesModel.findById(id)
+    .then(response => {
+        res.status(200).json({
+            success: true,
+            payload: {
+                message: "Loaded comments successfully",
+                data: response.comments.reverse()
+            }
+        });
+    })
+    .catch(err => {
+        res.status(400).json({
+            success: false,
+            payload: null,
+            err: {
+                message: `Could not get comments with id ${id}`,
+                error: err
+            }
+        })
+    })
+});
+
 
 //Post a testimony
 app.post('/testimony/add', verifyToken, (req, res, next) => {
@@ -195,6 +217,7 @@ function verifyLike(req, res, next){
     const data = req.body;
     const testimonyId = data.testimonyId;
     const likerId = data.likerId;
+    console.log("testimony id is ", testimonyId);
     testimoniesModel.findById(testimonyId)
     .then(data => {
         const likes = data.likes;
@@ -203,12 +226,18 @@ function verifyLike(req, res, next){
         })
         if(ifLiked){
             //Testimony has been liked already
+            console.log("likes are \n", likes);
+            console.log("liker is \n", likerId);
             res.status(401).json({
                 success: false,
                 payload: null,
                 err: {
                     code: 401,
-                    message: "This testimony has alreay been liked by the user"
+                    message: "This testimony has alreay been liked by the user",
+                    likes,
+                    likerId,
+                    testimonyId,
+                    data
                 }
             })
         }
