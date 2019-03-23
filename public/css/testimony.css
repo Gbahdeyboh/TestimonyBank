@@ -16,7 +16,7 @@
     right: 0px;
     left: 0px;
     background: white;
-    z-index: 2;
+    z-index: 3;
 }
 
 #body{
@@ -60,7 +60,7 @@
     top: 1.2em;
     border-radius: 2px;
     animation: expand .2s linear;
-    z-index: 2;
+    z-index: 3;
 }
 
 #headerOptionsClose{
@@ -131,6 +131,12 @@
     border: 2px solid var(--lighterRed);
 }
 
+#searchResults{
+    display: none;
+    justify-content: center;
+    align-items: flex-start;
+}
+
 
 #testifyBtn{
     height: 50px;
@@ -160,7 +166,7 @@
     height: 100%;
     background: black;
     opacity: 0.2 ;
-    z-index: 2;
+    z-index: 3;
 }
 #postTestimonyContainer{
     display: none;
@@ -173,7 +179,7 @@
     bottom: 0px;
     width: 100%;
     height: 100%;
-    z-index: 3;
+    z-index: 5;
     animation: fadeIn 0.5s linear;
 }
 
@@ -196,7 +202,7 @@
     align-items: center;
     flex-direction: column;
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     opacity: 0.8;
     background: var(--veryLightBlue);
     width: 600px!important;
@@ -264,12 +270,10 @@
 }
 
 #searchResults{
-    display: none!important;
     min-height: 70px;
     width: 84%;
     position: absolute;
     top: 12.3em;
-    z-index: 2;
 }
 
 #searchResultBody{
@@ -277,10 +281,34 @@
     min-height: 70px;
     border-radius: 5px;
     background: white;
+    z-index: 2;
 }
 
 #searchHeader{
+    min-height: 80px;
+    padding: 1em;
+}
+
+.searchResult{
     height: 60px;
+    box-sizing: border-box;
+    margin-bottom: 0.3em;
+    padding: 10px;
+}
+.searchResult:hover{
+    cursor: pointer;
+    background: var(--veryLightBlue);
+}
+
+.searchTitle{
+    height: 60%;
+    font-size: 1.3em;
+}
+.searchName{
+    height: 40%;
+    font-size: 0.8em;
+    color: lightgrey;
+    font-family: sans-serif!important;
 }
 
 
@@ -385,7 +413,7 @@
 .h{
     position: fixed;
     top: 3em;
-    z-index: 6;
+    z-index: 7;
     width: 100px;
     height: 60px;
     background: red;

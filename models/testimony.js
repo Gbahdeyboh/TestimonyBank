@@ -51,4 +51,8 @@ const TestimoniesSchema = new mongoose.Schema({
 
 TestimoniesSchema.plugin(mongoosePaginate);
 
+TestimoniesSchema.index({
+    title: 'text'
+  });
+
 module.exports = new mongoose.model('Testimonies', TestimoniesSchema);

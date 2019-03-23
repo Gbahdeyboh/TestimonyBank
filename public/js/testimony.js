@@ -53,9 +53,11 @@ function loadUserData(){
 
 /**
  * @desc Load all the testimonies in batches as the user scrolls
- * @param {Number} page - Gives the number of times data has been loaded
+ * @param {Number} page - Gives the number of times data has been loaded 
+ * or the number of pages that has been loaded from the server
  */
 function loadTestimonyData(page){
+    document.querySelector('#testimonyObserver').style.display = 'flex'; //Display the testimony observer loader
     const token = localStorage.getItem('t_b_tok');
     document.querySelector('#testimonyObserver').innerHTML = `
         <div class="preloader-wrapper big active">
@@ -105,9 +107,10 @@ function loadTestimonyData(page){
             })
             testimonyWrapper.innerHTML += `
                     <div class="testimonyBody z-depth-2">
+                    <img src="./images/liberated_woman.jpg" alt="testimony_img_here" id="testImg"/>
                     <div class="testimonyHead fullWidth displayFlex pad">${testimonies[i].title}</div>
                     <div class="testimonyStory" data-id="${testimonies[i]._id}"  onclick="viewTestimonyDetails(this)">
-                            ${testimonies[i].testimony.length > 300 ? testimonies[i].testimony.substr(0, 300) + ' (Read More....)' : testimonies[i].testimony}
+                            ${testimonies[i].testimony.length > 180 ? testimonies[i].testimony.substr(0,180) + ' (Read More....)' : testimonies[i].testimony}
                     </div>
                     <div class="testimonyOwner row">
                         <div class="col s3 m3 l3 fullHeight displayFlex">
@@ -263,7 +266,7 @@ function viewTestimonyDetails(dom, isNew=false){
         comments.innerHTML = dom.parentNode.querySelector('.testimonyAction').querySelectorAll('div')[1].querySelector('.testimonyIconNumbers').innerHTML;
         shares.innerHTML = dom.parentNode.querySelector('.testimonyAction').querySelectorAll('div')[2].querySelector('.testimonyIconNumbers').innerHTML;
         console.log(dom.parentNode.querySelector('.testimonyAction').querySelectorAll('div')[2].querySelector('.testimonyIconNumbers').innerHTML);
-        //People who liked this tetimony
+        //People who liked this testimony
         likers.forEach(likedBy => {
             if(likedBy !== 0){
                 console.log("likers are ", likers);
@@ -290,7 +293,8 @@ function likeTestimony(dom){
     const data = JSON.parse(localStorage.getItem('t_b_data')); //users data
     const token = data.payload.token;
     const likerId = data.payload.data.name;
-    const testimonyId = localStorage.getItem('t_b_id');
+    const testimonyId = dom.dataset.id;
+    console.log("The testimony Id is ", testimonyId);
     fetch('http://localhost:8500/api/testimony/like', {
         method: 'PUT',
         headers: {
@@ -386,6 +390,7 @@ function comment(){
     });
 }
 
+
 async function newComment(dom){
     //get the dom of the story which is used to view the selected testimony detail
     const storyDom = await dom.parentNode.parentNode.parentNode.querySelector('.testimonyStory');
@@ -440,7 +445,52 @@ function closeTestimonyDetails(){
 }
 
 
-let page = 1; //Icreases as more testimonies data are rendered to tthe viewport
+function searchTestimony(){
+    const searchInput = document.querySelector('#searchInput');
+    const searchResults = document.querySelector('#searchResults');
+    if(searchInput.value.length < 1 || searchInput.value.split('')[0] === ' '){
+        //Don't send request when no input is made
+        //Hide the result nav also
+        searchResults.style.display = 'none';
+    }
+    else{
+        const data = JSON.parse(localStorage.getItem('t_b_data')); //users data
+        const token = data.payload.token;
+        fetch(`http://localhost:8500/api/testimony/search?q=${searchInput.value}`,{
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(data => {
+            return data.json();
+        })
+        .then(response => {
+            console.log("response is ", response.payload.data);
+            searchResults.style.display = 'flex'; //Display the search result 
+            const searchResultBody = document.querySelector('#searchResultBody');
+            searchResultBody.innerHTML = `
+            <div class="fullWidth displayFlex" id="searchHeader">
+                <h5>Found ${response.payload.data.length} testimonies related to "${searchInput.value}" </h5>
+            </div>
+            `;
+            response.payload.data.forEach(data => {
+                searchResultBody.innerHTML += `
+                <div class="searchResult fullWidth">
+                    <div class="searchTitle displayFlexLeft padLeft">${data.title}</div>
+                    <div class="searchName displayFlexLeft padLeft"> @${data.postersName}</div>
+                </div>
+                `
+            });
+        })
+        .catch(err => {
+            console.log("err ", err);
+        });
+    }
+}
+
+
+let page = 1; //Icreases as more testimonies data are rendered to the viewport
 document.addEventListener('DOMContentLoaded', () => {
     const headerOptionButton = document.querySelector('#iconBody');
     const closeHeaderOptionButton = document.querySelector('#headerOptionsClose');
@@ -470,8 +520,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /**
      * @desc Testimony Observer for loading more dynamic content has user scrolls
-     * @param {Number} page - The page currently displayed in the viewport
+     * @param {Number} page - The page currently loaded into the viewport
      */
+     // Don't show the observer loader until data has been fetched
+    document.querySelector('#testimonyObserver').style.display = 'none';
     loadTestimonyData(page);
      const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {

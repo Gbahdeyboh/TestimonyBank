@@ -138,12 +138,12 @@ html{
     object-fit: cover;
 }
 #firstPageOverlay{
-    background: linear-gradient(rgb(248, 29, 29), rgb(248, 29, 29), rgb(131, 38, 38), rgb(143, 65, 65), white);
+    background: black;
     position: absolute;
     top: 0px;
     right: 0px;
     left: 0px;
-    opacity: 0.5;
+    opacity: 0.3;
 }
 #firstPageBody{
     position: absolute;
@@ -240,7 +240,7 @@ html{
 }
 
 .testimonyBody{
-    height: 450px;
+    height: 610px;
     width: 330px;
     background: white;
     margin: 2em;
@@ -277,7 +277,8 @@ html{
 }
 
 .testimonyStory{
-    height: 270px;
+    font-size: 0.98em!important;
+    height: 170px;
     padding: 2em;
     color: grey;
     cursor: pointer;
@@ -311,7 +312,7 @@ html{
     left: 0px;
     bottom: 0px;
     width: 100%;
-    z-index: 3;
+    z-index: 4;
     overflow-y: scroll;
 }
 #testimonyContainerActiveBody{
@@ -750,6 +751,7 @@ blockquote{
 
 
 #testimonyObserver{
+    display: none;
     min-height: 5px;
     display: flex;
     justify-content: center;
@@ -776,4 +778,15 @@ blockquote{
     #testimonyStoryActive{
         font-size: 1.2em!important;
     }
+}
+
+
+
+
+#testImg{
+    width: 100%;
+    height: 250px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    object-fit: cover;
 }

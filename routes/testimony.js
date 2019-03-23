@@ -9,12 +9,10 @@ const testimoniesModel = require('../models/testimony');
 //Get posted testimonies
 app.get('/testimony/get', verifyToken, (req, res, next) => {
     const page = req.query.page || 1;
-    console.log("page ", page)
     testimoniesModel.paginate({}, {page : parseInt(page), limit: parseInt(3)})
     .then(response => {
         const pageNo = response.pages //Number of pages
         const lastPage = (pageNo + 1) - page; //select the page from behind to get most recently added records
-        console.log("pageNo ", pageNo);
         testimoniesModel.paginate({}, {page : parseInt(lastPage), limit: parseInt(3)})
         .then(testimony => {
             const pageNo = testimony.pages //Number of pages
@@ -113,6 +111,43 @@ app.get('/testimony/comment/get/:id', verifyToken, (req, res, next) => {
                 error: err
             }
         })
+    })
+});
+
+app.get('/testimony/search', verifyToken, (req, res, next) => {
+    const query = req.query.q;
+    testimoniesModel.find({title: { $regex: query, $options: 'i' }}) //$text: { $search: query }
+    .then(responses => {
+        /**
+         * @desc 
+         * The mongoose returns an array of objects
+         * We loop through this array and extract the essentials from this data
+         * Each data extracted is pushed into a new Array 'datas'
+         * This new Array is what is sent back to the client
+         */
+        let datas = [];
+        for (response in responses){
+            let data = {
+                postersId: responses[response].postersId,
+                postersName: responses[response].postersName,
+                title: responses[response].title,
+                testimony: responses[response].testimony,
+                datePosted: responses[response].datePosted,
+                _id: responses[response]._id
+            }
+            datas.push(data);
+        }
+        console.log("response is ", datas);
+        res.json({
+            success: true,
+            payload: {
+                message: `fetched results for {${query}}`,
+                data: datas
+            }
+        });
+    })
+    .catch(err => {
+        res.json({err});
     })
 });
 
@@ -222,22 +257,22 @@ function verifyLike(req, res, next){
     .then(data => {
         const likes = data.likes;
         const ifLiked = likes.some((val) => {
-            if(val === likerId) return true;
+            if(val === likerId){
+                console.log('Sent val is ', likerId);
+                console.log('compared val is ', val);
+                return true;
+            }
         })
         if(ifLiked){
             //Testimony has been liked already
-            console.log("likes are \n", likes);
+            console.log("likes are \n", testimonyId);
             console.log("liker is \n", likerId);
             res.status(401).json({
                 success: false,
                 payload: null,
                 err: {
                     code: 401,
-                    message: "This testimony has alreay been liked by the user",
-                    likes,
-                    likerId,
-                    testimonyId,
-                    data
+                    message: "This testimony has already been liked by the user"
                 }
             })
         }
