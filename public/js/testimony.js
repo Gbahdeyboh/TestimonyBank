@@ -18,6 +18,7 @@ class DisplayTestimonyStuffs extends DisplayStuffs{
         this.headerOption = document.querySelector('#headerOptionBody');
         this.testifyContainer = document.querySelector('#postTestimonyContainer');
         this.testimonyLoader = document.querySelector('#testimonyLoader');
+        this.profileContainer = document.querySelector('#profileContainer');
     }
     displayHeaderOptions(){
         this.displayStuff(this.headerOption);
@@ -31,6 +32,14 @@ class DisplayTestimonyStuffs extends DisplayStuffs{
     }
     closeTestifyPrompt(){
         this.hideStuff(this.testifyContainer);
+        this.hideStuff(overlay);
+    }
+    displayProfile(){
+        this.displayFlexStuff(this.profileContainer);
+        this.displayStuff(overlay);
+    }
+    closeProfile(){
+        this.hideStuff(this.profileContainer);
         this.hideStuff(overlay);
     }
 }
@@ -158,6 +167,66 @@ function closeTestifyPrompt(){
     TestimonyDisp.closeTestifyPrompt();
 }
 
+//View the profile of the currently logged in user
+function viewProfile(){
+    const TestimonyDisp = new DisplayTestimonyStuffs();
+    TestimonyDisp.displayProfile();
+    const data = JSON.parse(localStorage.getItem('t_b_data')); //The current users data
+    const id = data.payload.data._id;
+    const name = data.payload.data.name;
+    const email = data.payload.data.email;
+    const number = data.payload.data.number;
+    const dateCreated = data.payload.data.created;
+    const extractDateDetails = dateCreated.split('T').shift().split('-');
+    const dt = new Date(extractDateDetails);
+    const datePosted = dt.toGMTString().split('00:00:00 GMT')[0]
+    //Render the data to the DOM 
+    document.querySelector('#profileName').innerHTML = name;
+    document.querySelector('#profileEmail').innerHTML = email;
+    document.querySelector('#profileNumber').innerHTML = number;
+    document.querySelector('#profileCreationDate').innerHTML = datePosted;
+    const token = data.payload.token;
+    //Load the posted testimonies of the viewed users profile
+    fetch(`http://localhost:8500/api/testimony/get?postersId=${id}`, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    .then(data => {
+        return data.json();
+    })
+    .then(response => {
+        //save the gotten response in a session
+        sessionStorage.setItem('userTestimonies', JSON.stringify(response));
+        //render the response to the DOM
+        const tempStorage = sessionStorage.getItem('userTestimonies');
+        if(tempStorage){
+            //render the data to the DOM
+            const data = JSON.parse(tempStorage);
+            const parent = document.querySelector('#profileTestimoniesList')
+            for(i in data.payload){
+                parent.innerHTML += `
+                    <li data-index='${i}'>${data.payload[i].title}</li>
+                `
+            }
+            parent.querySelectorAll('li').forEach(list => {
+                list.addEventListener('click', () => {
+                    console.log(data.payload[list.dataset.index]);
+                })
+            })
+        }
+    })
+    .catch(err => {
+        console.log("The error is ", err);
+    })
+}
+
+function closeProfile(){
+    const TestimonyDisp = new DisplayTestimonyStuffs();
+    TestimonyDisp.closeProfile();
+}
+
 function logout(){
     localStorage.getItem('t_b_tok') === null ? true /*User isn't logged in*/ : (() => {
         //Log user out
@@ -177,7 +246,7 @@ function testify(){
     const testimony = document.querySelector('#testimonyContentInput');
     const errorContainer = document.querySelector('#testimonyError');
     console.log("hellllooooooo");
-    title.value === "" || testimony.value === "" ? new DisplayStuffs().displayFlexStuff(errorContainer) : fetch('http://localhost:8500\/api/testimony/add', {
+    title.value === "" || testimony.value === "" ? new DisplayStuffs().displayFlexStuff(errorContainer) : fetch('http://localhost:8500/api/testimony/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -215,9 +284,10 @@ function testify(){
 
 /**
  * @param {Object} dom - The html object element
+ * @param {Boolean} isNewComment - Checks if the user wants to add a new comment or just view the testimony
  */
 
-function viewTestimonyDetails(dom, isNew=false){
+function viewTestimonyDetails(dom, isNewComment=false){
     const testimonyId = dom.dataset.id; //get the testimony id
     localStorage.setItem('t_b_id', testimonyId); //Store the viewed testiomonies Id
     const data = JSON.parse(localStorage.getItem('t_b_data')); //users data
@@ -279,7 +349,7 @@ function viewTestimonyDetails(dom, isNew=false){
         //load all the testimony comments
         loadComments(testimonyId);
         //If comment icon is clicked, scroll to the comment section
-        if(isNew){
+        if(isNewComment){
             window.location.assign('#commentInput');
         }
     })

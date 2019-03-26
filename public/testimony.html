@@ -49,7 +49,7 @@
                     <div class="fullWidth displayFlexRight padRight padTop" id="headerOptionsClose">
                         <i class="fas fa-times fa-xs"></i>
                     </div>
-                    <div class="headerOpt row">
+                    <div class="headerOpt row" id='viewProfile' onclick="viewProfile()" data-id="">
                         <div class="col s4 m4 l4 fullHeight displayFlexLeft padLeft">
                             <img src="images/liberated_woman.jpg" alt_"image_here" class="userPicture"/>
                         </div>
@@ -350,6 +350,53 @@
                             <polyline id="successAnimationCheck" stroke="#979797" stroke-width="2" points="23 34 34 43 47 27" fill="transparent"/>
                         </svg>
                         <div>Thanks for sharing your testimony, may it be permanent in Jesus name, Amen!</div>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <div class="" id="profileContainer">
+                    <div class="" id="profileBody">
+                        <div class="row" id="profileBodyHead">
+                            <div class="col s3 m2 l2 fullHeight displayFlex">
+                                <img alt="profile_image_here" src="./images/liberated_woman.jpg" id="profileImage" />
+                            </div>
+                            <div class="col s8 m9 l9 fullHeight displayFlexLeft padLeft" id="profileName">Bello Gbadebo</div>
+                            <div class="col s1 m1 l1 fullHeight displayFlexTop">
+                                <i class="fas fa-times fa-1x" id="closeProfile"  onclick="closeProfile()"></i>
+                            </div>
+                        </div>
+                        <div class="" id="profileBodyBody">
+                            <div class="row white pad row" id="profileInfoBody">
+                                <div class="col s12 m8 l8 pad fullHeight">
+                                    <div class="profileInfo head padLeft">*Email</div>
+                                    <div class="profileInfo text" id="profileEmail">gbahdeybohbello@gmail.com</div>
+                                    <div class="profileInfo head padLeft">*Mobile No</div>
+                                    <div class="profileInfo text" id="profileNumber">08133282428</div>
+                                    <div class="profileInfo head padLeft">*Joined</div>
+                                    <div class="profileInfo text" id="profileCreationDate">24th of august 2018</div>
+                                </div>
+                                <div class="col s12 m4 l4 fullHeight displayFlexColumn" style="margin-top: -40px;">
+                                    <div class="hide-on-small-only displayFlexColumn" id="uploadDesktopBody">
+                                        <i class="fas fa-user" id="uploadIcon"></i>
+                                    </div>
+                                    <div class="displayFlex btn" id="uploadMobileBody">
+                                        Upload a photo
+                                        <input type="file" id="uploadImageButton" style="height: 60px!important;"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="" id="profileTestimonies">
+                                <div class="displayFlex" id="profileTestimoniesHead">
+                                    <h5>Testimonies</h5>
+                                </div>
+                                <div class="" id="profileTestimoniesBody">
+                                    <ul id="profileTestimoniesList">
+                                    <!-- <li data-index='0'>Testimony 1</li>
+                                        <li data-index='1'>Testimony 2</li> -->
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

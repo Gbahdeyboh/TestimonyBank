@@ -8,56 +8,78 @@ const testimoniesModel = require('../models/testimony');
 
 //Get posted testimonies
 app.get('/testimony/get', verifyToken, (req, res, next) => {
-    const page = req.query.page || 1;
-    testimoniesModel.paginate({}, {page : parseInt(page), limit: parseInt(3)})
-    .then(response => {
-        const pageNo = response.pages //Number of pages
-        const lastPage = (pageNo + 1) - page; //select the page from behind to get most recently added records
-        testimoniesModel.paginate({}, {page : parseInt(lastPage), limit: parseInt(3)})
-        .then(testimony => {
-            const pageNo = testimony.pages //Number of pages
+    const page = req.query.page;
+    if(page){ //if a page is specified
+        testimoniesModel.paginate({}, {page : parseInt(page), limit: parseInt(3)})
+        .then(response => {
+            const pageNo = response.pages //Number of pages
             const lastPage = (pageNo + 1) - page; //select the page from behind to get most recently added records
-            if(testimony.docs.length > 0){
-                res.status(200).json({
-                    success: true,
-                    payload: {
-                        message: "Testimonies gotten successfully",
-                        data: testimony.docs.reverse()
-                    }
-                });
-            }
-            else{
-                res.status(404).json({
-                    success: true,
+            testimoniesModel.paginate({}, {page : parseInt(lastPage), limit: parseInt(3)})
+            .then(testimony => {
+                const pageNo = testimony.pages //Number of pages
+                const lastPage = (pageNo + 1) - page; //select the page from behind to get most recently added records
+                if(testimony.docs.length > 0){
+                    res.status(200).json({
+                        success: true,
+                        payload: {
+                            message: "Testimonies gotten successfully",
+                            data: testimony.docs.reverse()
+                        }
+                    });
+                }
+                else{
+                    res.status(404).json({
+                        success: true,
+                        payload: null,
+                        err: {
+                            code: 404,
+                            message: "There are no testimonies to display yet, kindly share a testimony"
+                        }
+                    })
+                }
+            })
+            .catch(err => {
+                res.status(400).json({
+                    success: false,
                     payload: null,
                     err: {
-                        code: 404,
-                        message: "There are no testimonies to display yet, kindly share a testimony"
+                        code: 400,
+                        err
                     }
                 })
-            }
+            });
         })
         .catch(err => {
             res.status(400).json({
                 success: false,
                 payload: null,
                 err: {
-                    code: 400,
-                    err
+                    message: `Could not fetch testimonies, something went wrong`,
+                    error: err
                 }
             })
-        });
-    })
-    .catch(err => {
-        res.status(400).json({
-            success: false,
-            payload: null,
-            err: {
-                message: `Could not fetch testimonies, something went wrong`,
-                error: err
-            }
         })
-    })
+    }
+    else if(req.query.postersId){
+        testimoniesModel.find({'postersId': req.query.postersId})
+        .then(response =>{
+            res.json({
+                success: true,
+                payload: response
+            });
+        })
+        .catch(err => {
+            res.json({
+                success: false,
+                payload: null,
+                err: {
+                    code: 404,
+                    message: `Could not fetch testimonies of the specified user`,
+                    error: err
+                }
+            });
+        })
+    }
 });
 
 app.get('/testimony/get/:id', verifyToken, (req, res, next) => {
@@ -87,6 +109,20 @@ app.get('/testimony/get/:id', verifyToken, (req, res, next) => {
         })
     });
 });
+
+//get just the titles of testimonies posted by a specific user
+
+app.get('/testimony/get/title', verifyToken, (req, res, next) => {
+    const data = req.body;
+    testimoniesModel.find(data)
+    .then(response => {
+        res.send(response);
+        console.log(response);
+    })
+    .catch(err => {
+        res.send(err);
+    });
+})
 
 
 //Get posted comments

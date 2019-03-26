@@ -77,6 +77,18 @@
     height: 70px;
 }
 
+
+
+
+
+#viewProfile{
+    cursor: pointer;
+}
+
+#viewProfile:hover{
+    background: whitesmoke;
+}
+
 #userName, #userDetailName, #postUserName, #postUserEmail{
     font-size: 13px;
 }
@@ -168,7 +180,7 @@
     opacity: 0.2 ;
     z-index: 3;
 }
-#postTestimonyContainer{
+#postTestimonyContainer, #profileContainer{
     display: none;
     justify-content: center;
     align-items: center;
@@ -189,7 +201,7 @@
     }
 }
 
-#postTestimonyBody, #testimonyLoader{
+#postTestimonyBody, #testimonyLoader, #profileBody{
     width: 600px;
     min-height: 450px;
     border-radius: 10px;
@@ -279,9 +291,24 @@
 #searchResultBody{
     width: 85%;
     min-height: 70px;
+    max-height: 400px;
     border-radius: 5px;
     background: white;
     z-index: 2;
+    overflow: scroll;
+}
+
+#searchResultBody::-webkit-scrollbar {
+    width: 5px;
+    height: .2px;
+}
+#searchResultBody::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+
+#searchResultBody::-webkit-scrollbar-thumb {
+    background-color: lightgrey;
+    border-radius: 1em;
 }
 
 #searchHeader{
@@ -309,6 +336,132 @@
     font-size: 0.8em;
     color: lightgrey;
     font-family: sans-serif!important;
+}
+
+#profileContainer{
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#profileImage{
+    width: 60px;
+    height: 60px;
+    border-radius: 10em;
+    object-fit: cover;    
+}
+
+#profileBodyHead{
+    width: 100%;
+    height: 70px;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+    border-bottom: 1px solid lightgrey;
+}
+
+#profileName{
+    font-size: 1.2em;
+}
+
+#closeProfile{
+    margin-top: 1em;
+    cursor: pointer;
+    color: lightgrey;
+    transition: color .5s linear;
+}
+
+#closeProfile:hover{
+    color: var(--lightRed);
+}
+
+#profileBodyBody{
+    min-height: 380px;
+    max-height: 480px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#profileInfoBody{
+    height: 60%;
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+}
+
+#profileTestimonies{
+    height: 105px;
+    padding-right: 1em;
+    padding-left: 1em;
+}
+
+.profileInfo{
+    height: 30px;
+}
+
+.profileInfo.head{
+    font-weight: bolder;
+}
+
+.profileInfo.text{
+    padding-left: 2em;
+    color: grey;
+}
+
+#uploadDesktopBody{
+    width: 90%;
+    height: 210px;
+}
+
+#uploadMobileBody{
+    height: 40px!important;
+    width: 150px!important;
+    font-size: 13px;
+    padding: 1em;
+    border: none;
+    background: var(--lighterRed);
+    cursor: pointer;
+    margin-top: 2.5em!important;
+}
+#uploadMobileButton:focus{
+    background: red!important;
+}
+
+#uploadIcon{
+    width: 80%;
+    height: 80%;
+    color: lightgrey;
+}
+
+#uploadImageButton{
+    width: 150px;
+    height: 40px!important;
+    display: block;
+    background: green!important;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+#profileTestimoniesHead{
+    height: 30px;    
+}
+
+#profileTestimoniesBody{
+    height: 75px;
+    overflow-y: scroll;
+}
+
+#profileTestimoniesList > li{
+    height: 40px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 1em;
+    cursor: pointer;
+    border-bottom: 1px solid lightgray;
+}
+
+#profileTestimoniesList > li:hover{
+    background: var(--veryLightBlue);
 }
 
 
@@ -403,8 +556,17 @@
     #searchInput{
         width: 80%;
     }
-    #postTestimonyBody{
+    #postTestimonyBody, #profileBody{
         width: 280px!important;
+    }
+    #profileInfoBody *{
+        height: 50%!important;
+    }
+    #profileTestimonies{
+        height: 140px;
+    }
+    #profileTestimoniesBody{
+        height: 110px;
     }
 }
 

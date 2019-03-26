@@ -20,11 +20,14 @@ class DisplayStuffs{
     }
     displayStuff(stuff){
         stuff.style.display = this.block;
+        document.body.style.overflow = 'hidden'; //Disable scrolling on the main body
     }
     displayFlexStuff(stuff){
         stuff.style.display = this.flex;
+        document.body.style.overflow = 'hidden'; //Disable scrolling on the main body
     }
     hideStuff(stuff){
         stuff.style.display = this.none;
+        document.body.style.overflow = 'scroll'; //Disable scrolling on the main body
     }
 }

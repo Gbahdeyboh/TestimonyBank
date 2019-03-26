@@ -61,10 +61,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const displayCreateAccountBtn = document.querySelector('#createAccount');
     const closeLoginBtn = document.querySelector('#closeLogin');
     const closeAccountBtn = document.querySelector('#closeSignUp');
+    const shareTestimonyBtn = document.querySelector('#shareTestimonyBtn');
+    const viewMoreTesimonies = document.querySelector('#viewMoreTesimonies');
 
     const AuthDisp = new AuthDisplay();
 
     displayLoginBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login conatner when login button is clicked
+    shareTestimonyBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login conatner when login button is clicked
+    viewMoreTesimonies.addEventListener('click', () => AuthDisp.displayLogin()); //display login conatner when login button is clicked
     closeLoginBtn.addEventListener('click', () => AuthDisp.closeLoginDisplay()); //close the login container
     displayCreateAccountBtn.addEventListener('click', () => {AuthDisp.displayAccountCreationContainer();});
     closeAccountBtn.addEventListener('click', () => {AuthDisp.closeAccountDisplay()});
