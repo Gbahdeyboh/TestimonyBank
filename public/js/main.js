@@ -94,14 +94,14 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             testimonyWrapper.innerHTML += `
                     <div class="testimonyBody z-depth-2">
-                    <img src="./images/liberated_woman.jpg" alt="testimony_img_here" id="testImg"/>
+                    <img src="/static/images/liberated_woman.jpg" alt="testimony_img_here" id="testImg"/>
                     <div class="testimonyHead fullWidth displayFlex pad">${testimonies[i].title}</div>
                     <div class="testimonyStory" data-id="${testimonies[i]._id}">
                             ${testimonies[i].testimony.length > 180 ? testimonies[i].testimony.substr(0,180) + ' (Read More....)' : testimonies[i].testimony}
                     </div>
                     <div class="testimonyOwner row" data-id='${testimonies[i].postersId}')">
                         <div class="col s3 m3 l3 fullHeight displayFlex">
-                            <img src="images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
+                            <img src="/static/images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
                         </div>
                         <div class="col s9 m9 l9 fullHeight">
                             <div class="halfHeight displayFlexLeft">

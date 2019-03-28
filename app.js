@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const path = require('path');
 const customEnv = require('custom-env').env();
 const cors = require('cors');
  
@@ -13,6 +14,18 @@ const signinAuth = require('./auth/signin');
 const userRoute = require('./routes/users');
 
 const testimoniesRoute = require('./routes/testimony');
+
+
+app.use('/static', express.static('public'));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+app.get('/testimony.html', (req, res) => {
+    res.sendFile(path.join(__dirname, './public/testimony.html'));
+});
+
 
 app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());

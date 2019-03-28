@@ -8,29 +8,29 @@
         <meta name="TestimonyBank" description="A simple web app to store peoples testimonies">
         <title>Testimony Bank</title>  
         <!--stylesheets-->
-        <link rel="stylesheet" type="text/css" href="css/style.css" media="all" />
-        <link rel="stylesheet" type="text/css" href="css/testimony.css" media="all" />
-        <link rel="stylesheet" type="text/css" href="css/materialize.min.css"/>
-        <link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" media="all" />
-        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons" media="all" />
-        <link rel="stylesheet" type="text/css" href="css/google_font/base.css" media="all" />
-        <link rel="stylesheet" type="text/css" href="css/icons/icon_set_1.css" media="all" />
-        <link rel="stylesheet" type="text/css" href="css/icons/icon_set_2.css" media="all" />
-        <link rel="stylesheet" type="text/css" href="css/icons/icon_set_all.min.css" media="all" />
-        <link rel="stylesheet" type="text/css" href="css/Lato/latofonts.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="/static/css/style.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="/static/css/testimony.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="/static/css/materialize.min.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/css/font-awesome.min.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="/static/https://fonts.googleapis.com/icon?family=Material+Icons" media="all" />
+        <link rel="stylesheet" type="text/css" href="/static/css/google_font/base.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="/static/css/icons/icon_set_1.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="/static/css/icons/icon_set_2.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="/static/css/icons/icon_set_all.min.css" media="all" />
+        <link rel="stylesheet" type="text/css" href="/static/css/Lato/latofonts.css" media="all" />
         <!--Scripts-->
-        <script type="text/javascript" language="javscript" src="js/display.js"></script>
-        <script type="text/javascript" language="javscript" src="js/testimony.js"></script>
-        <script type="text/javascript" language="javscript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" language="javscript" src="js/materialize.min.js"></script>
-        <script type="text/javascript" language="javscript" src="js/fontawesome-all.js"></script>
+        <script type="text/javascript" language="javscript" src="/static/js/display.js"></script>
+        <script type="text/javascript" language="javscript" src="/static/js/testimony.js"></script>
+        <script type="text/javascript" language="javscript" src="/static/js/jquery.min.js"></script>
+        <script type="text/javascript" language="javscript" src="/static/js/materialize.min.js"></script>
+        <script type="text/javascript" language="javscript" src="/static/js/fontawesome-all.js"></script>
     </head>
     <body>
         <div class="" id="body">
             <section>
                 <div class="row z-depth-2" id="header">
                     <div class="col s3 m3 l2 fullHeight displayFlexLeft">
-                        <img src="images/MFM-logo.gif" class="margin"  id="firstPageBodyHeadLogo"/>
+                        <img src="/static/images/MFM-logo.gif" class="margin"  id="firstPageBodyHeadLogo"/>
                     </div>
                     <div class="col s6 m6 l8 fullHeight displayFlex padBottom">
                         <h3 id="headerName">Testimony Bank</h3>
@@ -39,7 +39,7 @@
                         <div class="row fullHeight fullWidth" id="iconBody">
                             <div class="col s8 m8 l8 fullHeight displayFlexRight hide-on-small-only" id="userName"></div>
                             <div class="col s4 m4 l4 fullHeight displayFlex">
-                                <img src="images/liberated_woman.jpg" alt_"image_here" class="userPicture"/>
+                                <img src="/static/images/liberated_woman.jpg" alt_"image_here" class="userPicture"/>
                                 <i class="fas fa-caret-down grey-text"></i>
                             </div>
                         </div>
@@ -51,7 +51,7 @@
                     </div>
                     <div class="headerOpt row" id='viewProfile' onclick="viewProfile()" data-id="">
                         <div class="col s4 m4 l4 fullHeight displayFlexLeft padLeft">
-                            <img src="images/liberated_woman.jpg" alt_"image_here" class="userPicture"/>
+                            <img src="/static/images/liberated_woman.jpg" alt_"image_here" class="userPicture"/>
                         </div>
                         <div class="col s8 m8 l8 fullHeight pad">
                             <div id="userDetailName">Bello Gbadebo</div>
@@ -202,7 +202,7 @@
                             </div>
                             <div class="testimonyOwner row" id="viewTestimony" onclick="viewOtherProfile(this)">
                                 <div class="col s3 m2 l2 fullHeight displayFlex">
-                                    <img src="images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
+                                    <img src="/static/images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
                                 </div>
                                 <div class="col s9 m10 l10 fullHeight">
                                     <div class="halfHeight displayFlexLeft" id="testimonyActiveName">
@@ -234,7 +234,7 @@
                                 <div class="col s10 m10 l10 fullHeight">
                                     <div class="row fullHeight">
                                         <div class="col s3 m2 l2 fullHeight displayFlex">
-                                            <img src="./images/liberated_woman.jpg" class="circle" id="commentersImage"/>
+                                            <img src="/static/images/liberated_woman.jpg" class="circle" id="commentersImage"/>
                                         </div>
                                         <div class="col s9 m10 m10 fullHeight displayFlex">
                                             <textarea class="browser-default testimonyInput" id="commentInput"></textarea>
@@ -358,7 +358,7 @@
                     <div class="" id="profileBody">
                         <div class="row" id="profileBodyHead">
                             <div class="col s3 m2 l2 fullHeight displayFlex">
-                                <img alt="profile_image_here" src="./images/liberated_woman.jpg" id="profileImage" />
+                                <img alt="profile_image_here" src="/static/images/liberated_woman.jpg" id="profileImage" />
                             </div>
                             <div class="col s8 m9 l9 fullHeight displayFlexLeft padLeft" id="profileName">Bello Gbadebo</div>
                             <div class="col s1 m1 l1 fullHeight displayFlexTop">

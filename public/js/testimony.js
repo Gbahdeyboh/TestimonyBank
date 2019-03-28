@@ -119,14 +119,14 @@ function loadTestimonyData(page){
             })
             testimonyWrapper.innerHTML += `
                     <div class="testimonyBody z-depth-2">
-                    <img src="./images/liberated_woman.jpg" alt="testimony_img_here" id="testImg"/>
+                    <img src="/static/images/liberated_woman.jpg" alt="testimony_img_here" id="testImg"/>
                     <div class="testimonyHead fullWidth displayFlex pad">${testimonies[i].title}</div>
                     <div class="testimonyStory" data-id="${testimonies[i]._id}"  onclick="viewTestimonyDetails(this)">
                             ${testimonies[i].testimony.length > 180 ? testimonies[i].testimony.substr(0,180) + ' (Read More....)' : testimonies[i].testimony}
                     </div>
                     <div class="testimonyOwner row" data-id='${testimonies[i].postersId}' onclick="viewOtherProfile(this)">
                         <div class="col s3 m3 l3 fullHeight displayFlex">
-                            <img src="images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
+                            <img src="/static/images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
                         </div>
                         <div class="col s9 m9 l9 fullHeight">
                             <div class="halfHeight displayFlexLeft">
@@ -476,7 +476,7 @@ function comment(){
         const imgBody = document.createElement('div'); //subNode
         imgBody.setAttribute('class', 'col s4 m2 l2 fullHeight displayFlex');
         const img = document.createElement('img');
-        img.setAttribute('src', './images/liberation.jpg');
+        img.setAttribute('src', '/static//images/liberation.jpg');
         img.setAttribute('alt', 'profile_image');
         img.setAttribute('class', 'circle profileImage');
         imgBody.appendChild(img);
@@ -536,7 +536,7 @@ function renderComment(name, comment, glow){
     document.querySelector('#commentsBody').innerHTML += `
         <div class="commentBody ${glow} row">
             <div class="col s4 m2 l2 fullHeight displayFlex">
-                <img src="./images/liberation.jpg" alt="profile_image" class="circle profileImage" />
+                <img src="/static/images/liberation.jpg" alt="profile_image" class="circle profileImage" />
             </div>
             <div class="col s8 m10 l10 fullHeight">
                 <div class="commentersName fullWidth displayFlexLeft">${name}</div>
