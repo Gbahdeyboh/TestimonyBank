@@ -167,7 +167,7 @@
     border: none;
 }
 
-#overlay{
+#overlay, #profileOverlay{
     display: none;
     position: fixed;
     top:0px;
@@ -219,6 +219,15 @@
     background: var(--veryLightBlue);
     width: 600px!important;
 }
+
+.testimonyOwner{
+    cursor: pointer;
+}
+
+.testimonyOwner:hover{
+    background: var(--veryLightBlue);
+}
+
 #postTestimonyBodyHead, #postTestimonyBodyHead > div{
     height: 60px;
     border-top-right-radius: 10px;
@@ -342,6 +351,7 @@
     display: none;
     justify-content: center;
     align-items: center;
+    z-index: 4;
 }
 
 #profileImage{
@@ -462,6 +472,13 @@
 
 #profileTestimoniesList > li:hover{
     background: var(--veryLightBlue);
+}
+
+#uploadProfileBody{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 

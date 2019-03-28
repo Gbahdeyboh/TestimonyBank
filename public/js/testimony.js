@@ -15,6 +15,7 @@ class DisplayTestimonyStuffs extends DisplayStuffs{
     constructor(){
         super();
         this.overlay = document.querySelector('#overlay');
+        this.profileOverlay = document.querySelector('#profileOverlay');
         this.headerOption = document.querySelector('#headerOptionBody');
         this.testifyContainer = document.querySelector('#postTestimonyContainer');
         this.testimonyLoader = document.querySelector('#testimonyLoader');
@@ -36,10 +37,12 @@ class DisplayTestimonyStuffs extends DisplayStuffs{
     }
     displayProfile(){
         this.displayFlexStuff(this.profileContainer);
-        this.displayStuff(overlay);
+        this.displayStuff(profileOverlay);
+        document.querySelector('#testimonyContainerActive').style.display = "none";
     }
     closeProfile(){
         this.hideStuff(this.profileContainer);
+        this.hideStuff(profileOverlay);
         this.hideStuff(overlay);
     }
 }
@@ -97,7 +100,7 @@ function loadTestimonyData(page){
             return;
         }
         let testimonyWrapper = document.querySelector('#testimonies');
-        console.log(data);
+        console.log("here's the datas", data);
         const testimonies = data.payload.data;
         for(let i = 0; i < testimonies.length; i++){
             //Format the date posted
@@ -121,7 +124,7 @@ function loadTestimonyData(page){
                     <div class="testimonyStory" data-id="${testimonies[i]._id}"  onclick="viewTestimonyDetails(this)">
                             ${testimonies[i].testimony.length > 180 ? testimonies[i].testimony.substr(0,180) + ' (Read More....)' : testimonies[i].testimony}
                     </div>
-                    <div class="testimonyOwner row">
+                    <div class="testimonyOwner row" data-id='${testimonies[i].postersId}' onclick="viewOtherProfile(this)">
                         <div class="col s3 m3 l3 fullHeight displayFlex">
                             <img src="images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
                         </div>
@@ -168,15 +171,17 @@ function closeTestifyPrompt(){
 }
 
 //View the profile of the currently logged in user
-function viewProfile(){
+function viewProfile(Id, Name, Email, Num, DateCreated){
     const TestimonyDisp = new DisplayTestimonyStuffs();
     TestimonyDisp.displayProfile();
+    document.querySelector('#uploadProfileBody').style.display = 'flex';
     const data = JSON.parse(localStorage.getItem('t_b_data')); //The current users data
-    const id = data.payload.data._id;
-    const name = data.payload.data.name;
-    const email = data.payload.data.email;
-    const number = data.payload.data.number;
-    const dateCreated = data.payload.data.created;
+    console.log("The idddd is ", Id);
+    const id = Id || data.payload.data._id;
+    const name = Name || data.payload.data.name;
+    const email = Email || data.payload.data.email;
+    const number = Num || data.payload.data.number;
+    const dateCreated = DateCreated || data.payload.data.created;
     const extractDateDetails = dateCreated.split('T').shift().split('-');
     const dt = new Date(extractDateDetails);
     const datePosted = dt.toGMTString().split('00:00:00 GMT')[0]
@@ -204,21 +209,47 @@ function viewProfile(){
         if(tempStorage){
             //render the data to the DOM
             const data = JSON.parse(tempStorage);
-            const parent = document.querySelector('#profileTestimoniesList')
+            const parent = document.querySelector('#profileTestimoniesList');
+            document.querySelector('#profileTestimoniesHead').querySelector('h5').innerHTML = "Testimonies" + `(${data.payload.length})`;
             for(i in data.payload){
+                parent.innerHTML = '';
                 parent.innerHTML += `
-                    <li data-index='${i}'>${data.payload[i].title}</li>
+                    <li data-index='${i}' data-id='${data.payload[i]._id}'>${data.payload[i].title}</li>
                 `
             }
+            //When any testimony title is clicked, display the full comment
             parent.querySelectorAll('li').forEach(list => {
                 list.addEventListener('click', () => {
-                    console.log(data.payload[list.dataset.index]);
+                    viewTestimonyDetails(list, isNewComment=false, isList=true);
                 })
             })
         }
     })
     .catch(err => {
         console.log("The error is ", err);
+    })
+}
+//View profile for othe rusers listed on the page
+function viewOtherProfile(dom){
+    const userId = dom.dataset.id;
+    console.log(userId);
+    //Get the users data 
+    fetch(`http://localhost:8500/api/users/${userId}`)
+    .then(data => {
+        return data.json();
+    })
+    .then(user => {
+        //Store the gotten data temporarily in a session
+        sessionStorage.setItem('userProfile', JSON.stringify(user.payload.data));
+        const data = JSON.parse(sessionStorage.getItem('userProfile'));
+        if(data){
+            //View the users profile
+            viewProfile(data._id, data.name, data.email, data.number, data.created);
+            document.querySelector('#uploadProfileBody').style.display = 'none';
+        }
+    })
+    .catch(err => {
+        console.log(err);
     })
 }
 
@@ -283,11 +314,11 @@ function testify(){
 
 
 /**
- * @param {Object} dom - The html object element
+ * @param {Object} dom - The html object element that was clicked
  * @param {Boolean} isNewComment - Checks if the user wants to add a new comment or just view the testimony
  */
 
-function viewTestimonyDetails(dom, isNewComment=false){
+function viewTestimonyDetails(dom, isNewComment=false, isList=false){
     const testimonyId = dom.dataset.id; //get the testimony id
     localStorage.setItem('t_b_id', testimonyId); //Store the viewed testiomonies Id
     const data = JSON.parse(localStorage.getItem('t_b_data')); //users data
@@ -332,10 +363,21 @@ function viewTestimonyDetails(dom, isNewComment=false){
         story.innerHTML = testimony.payload.data.testimony;
         name.innerHTML = testimony.payload.data.postersName;
         datePosted.innerHTML = `Posted on ${date}`;
-        likes.innerHTML = dom.parentNode.querySelector('.testimonyAction').querySelector('div').querySelector('#likesNo').querySelector('#likess').innerHTML;
-        comments.innerHTML = dom.parentNode.querySelector('.testimonyAction').querySelectorAll('div')[1].querySelector('.testimonyIconNumbers').innerHTML;
-        shares.innerHTML = dom.parentNode.querySelector('.testimonyAction').querySelectorAll('div')[2].querySelector('.testimonyIconNumbers').innerHTML;
-        console.log(dom.parentNode.querySelector('.testimonyAction').querySelectorAll('div')[2].querySelector('.testimonyIconNumbers').innerHTML);
+        likes.innerHTML = testimony.payload.data.likes.length - 1;
+        comments.innerHTML = testimony.payload.data.comments.length;
+        shares.innerHTML = testimony.payload.data.shares;
+        // console.log("dom is ", dom.parentNode.querySelector('.testimonyOwner').dataset.id);
+        if(isList){
+            document.querySelector('#viewTestimony').dataset.id = dom.dataset.id;
+            console.log("hjvh : ", dom.parentNode);
+        }
+        else{
+            document.querySelector('#viewTestimony').dataset.id = dom.parentNode.querySelector('.testimonyOwner').dataset.id;
+            console.log("hjvh2 : ", dom);
+        }
+        // likes.innerHTML = dom.parentNode.querySelector('.testimonyAction').querySelector('div').querySelector('#likesNo').querySelector('#likess').innerHTML;
+        // comments.innerHTML = dom.parentNode.querySelector('.testimonyAction').querySelectorAll('div')[1].querySelector('.testimonyIconNumbers').innerHTML;
+        // shares.innerHTML = dom.parentNode.querySelector('.testimonyAction').querySelectorAll('div')[2].querySelector('.testimonyIconNumbers').innerHTML;
         //People who liked this testimony
         likers.forEach(likedBy => {
             if(likedBy !== 0){

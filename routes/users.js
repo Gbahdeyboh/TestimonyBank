@@ -31,6 +31,30 @@ app.get('/users', (req, res, next) => { //returns a list of all users
     })
 });
 
+app.get('/users/:id', (req, res, next) => {
+    const userId = req.params.id;
+    userModel.findById(userId)
+    .then(user => {
+        res.json({
+            success: true,
+            payload: {
+                message: `User ${userId} details gotten successfully`,
+                data: user
+            }
+        });
+    })
+    .catch(err => {
+        res.json({
+            success: false,
+            payload: null,
+            err: {
+                code: 404,
+                err: err
+            }
+        });
+    })
+})
+
 app.delete('/delete/:id', (req, res) => {
     userModel.findByIdAndRemove(req.params.id)
     .then(data => {

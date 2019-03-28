@@ -19,11 +19,11 @@
         <link rel="stylesheet" type="text/css" href="css/icons/icon_set_all.min.css" media="all" />
         <link rel="stylesheet" type="text/css" href="css/Lato/latofonts.css" media="all" />
         <!--Scripts-->
-        <script type="text/javascript" language="jaavscript" src="js/display.js"></script>
-        <script type="text/javascript" language="jaavscript" src="js/testimony.js"></script>
-        <script type="text/javascript" language="jaavscript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" language="jaavscript" src="js/materialize.min.js"></script>
-        <script type="text/javascript" language="jaavscript" src="js/fontawesome-all.js"></script>
+        <script type="text/javascript" language="javscript" src="js/display.js"></script>
+        <script type="text/javascript" language="javscript" src="js/testimony.js"></script>
+        <script type="text/javascript" language="javscript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" language="javscript" src="js/materialize.min.js"></script>
+        <script type="text/javascript" language="javscript" src="js/fontawesome-all.js"></script>
     </head>
     <body>
         <div class="" id="body">
@@ -200,7 +200,7 @@
                                     akiikitan, agbanilagbatan, alagbadaina, Ogbeninijakeruobonija,Apataidigbolu, gbani gbani, arogund’ade, Ariroala , kiki ola, kiki Ogo, .. we worship you Lord.
                                     To everyone reading this testimony and expecting a miracle from God, The Lord shall suddenly come into His Temple and grant answers to your prayers in Jesus name, Amen.-->
                             </div>
-                            <div class="testimonyOwner row">
+                            <div class="testimonyOwner row" id="viewTestimony" onclick="viewOtherProfile(this)">
                                 <div class="col s3 m2 l2 fullHeight displayFlex">
                                     <img src="images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
                                 </div>
@@ -375,7 +375,7 @@
                                     <div class="profileInfo head padLeft">*Joined</div>
                                     <div class="profileInfo text" id="profileCreationDate">24th of august 2018</div>
                                 </div>
-                                <div class="col s12 m4 l4 fullHeight displayFlexColumn" style="margin-top: -40px;">
+                                <div class="col s12 m4 l4 fullHeight" id="uploadProfileBody" style="margin-top: -40px;">
                                     <div class="hide-on-small-only displayFlexColumn" id="uploadDesktopBody">
                                         <i class="fas fa-user" id="uploadIcon"></i>
                                     </div>
@@ -399,6 +399,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="profileOverlay"></div>
             </section>
         </div>
         <div class="" id="footer">

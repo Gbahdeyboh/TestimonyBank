@@ -7,14 +7,15 @@ const testimoniesModel = require('../models/testimony');
 
 
 //Get posted testimonies
-app.get('/testimony/get', verifyToken, (req, res, next) => {
+app.get('/testimony/get', (req, res, next) => {
     const page = req.query.page;
+    const limit = req.query.limit || 3;
     if(page){ //if a page is specified
-        testimoniesModel.paginate({}, {page : parseInt(page), limit: parseInt(3)})
+        testimoniesModel.paginate({}, {page : parseInt(page), limit: parseInt(limit)})
         .then(response => {
             const pageNo = response.pages //Number of pages
             const lastPage = (pageNo + 1) - page; //select the page from behind to get most recently added records
-            testimoniesModel.paginate({}, {page : parseInt(lastPage), limit: parseInt(3)})
+            testimoniesModel.paginate({}, {page : parseInt(lastPage), limit: parseInt(limit)})
             .then(testimony => {
                 const pageNo = testimony.pages //Number of pages
                 const lastPage = (pageNo + 1) - page; //select the page from behind to get most recently added records

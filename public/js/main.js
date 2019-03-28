@@ -53,8 +53,6 @@ class AuthDisplay extends DisplayStuffs{
 
 
 
-
-
 //Wait for DOM to load
 document.addEventListener('DOMContentLoaded', () => {
     const displayLoginBtn = document.querySelector('#loginButton');
@@ -62,14 +60,102 @@ document.addEventListener('DOMContentLoaded', () => {
     const closeLoginBtn = document.querySelector('#closeLogin');
     const closeAccountBtn = document.querySelector('#closeSignUp');
     const shareTestimonyBtn = document.querySelector('#shareTestimonyBtn');
-    const viewMoreTesimonies = document.querySelector('#viewMoreTesimonies');
 
     const AuthDisp = new AuthDisplay();
 
-    displayLoginBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login conatner when login button is clicked
-    shareTestimonyBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login conatner when login button is clicked
-    viewMoreTesimonies.addEventListener('click', () => AuthDisp.displayLogin()); //display login conatner when login button is clicked
+    displayLoginBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login container when login button is clicked
+    shareTestimonyBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login container when login button is clicked
     closeLoginBtn.addEventListener('click', () => AuthDisp.closeLoginDisplay()); //close the login container
     displayCreateAccountBtn.addEventListener('click', () => {AuthDisp.displayAccountCreationContainer();});
     closeAccountBtn.addEventListener('click', () => {AuthDisp.closeAccountDisplay()});
+
+    fetch('http://localhost:8500/api/testimony/get?page=1&&limit=7')
+    .then(data=> {
+        return data.json();
+    })
+    .then(testimony => {
+        console.log(testimony);
+        const testimonies = testimony.payload.data;
+        const testimonyWrapper = document.querySelector('#testimonies');
+        for(let i = 0; i < testimonies.length; i++){
+            //Format the date posted
+            const extractDateDetails = testimonies[i].datePosted.split('T').shift().split('-');
+            const dt = new Date(extractDateDetails);
+            const datePosted = dt.toGMTString().split('00:00:00 GMT')[0];
+            //Store the id in the single testimony prompt
+            // document.querySelector('#likeIcon').dataset.id = testimonies[i]._id;
+            const likers = testimonies[i].likes; //Number of likes
+            // console.log("likers are ", likers);
+            let likersList = '';
+            likers.forEach(likedBy => {
+                if(likedBy !== 0){
+                    likersList += `<li>${likedBy}</li>`;
+                };
+            })
+            testimonyWrapper.innerHTML += `
+                    <div class="testimonyBody z-depth-2">
+                    <img src="./images/liberated_woman.jpg" alt="testimony_img_here" id="testImg"/>
+                    <div class="testimonyHead fullWidth displayFlex pad">${testimonies[i].title}</div>
+                    <div class="testimonyStory" data-id="${testimonies[i]._id}">
+                            ${testimonies[i].testimony.length > 180 ? testimonies[i].testimony.substr(0,180) + ' (Read More....)' : testimonies[i].testimony}
+                    </div>
+                    <div class="testimonyOwner row" data-id='${testimonies[i].postersId}')">
+                        <div class="col s3 m3 l3 fullHeight displayFlex">
+                            <img src="images/istock-881959374-960x526 (1).jpg" class="testimonyImage"/>
+                        </div>
+                        <div class="col s9 m9 l9 fullHeight">
+                            <div class="halfHeight displayFlexLeft">
+                                ${testimonies[i].postersName}
+                            </div>
+                            <div class="halfHeight datePosted">Posted on ${datePosted}</div>
+                        </div>
+                    </div>
+                    <div class="testimonyAction row">
+                        <div class="col s4 m4 l4 fullHeight displayFlex"> 
+                            <i class="icon_heart_alt fa-2x testimonyIcon" data-id="${testimonies[i]._id}" title="like"></i>
+                            <span class="testimonyIconNumbers" id="likesNo">
+                            <ul id="likesList" class="z-depth-1">
+                                ${likersList}
+                            </ul>
+                                <span id="likess">${testimonies[i].likes.length - 1}</span>
+                            </span>
+                        </div>
+                        <div class="col s4 m4 l4 fullHeight displayFlex">
+                                <i class="icon_comment_alt fa-2x testimonyIcon" title="comment" data-id="${testimonies[i]._id}"></i>
+                                <span class="testimonyIconNumbers">${testimonies[i].comments.length}</span>
+                        </div>
+                        <div class="col s4 m4 l4 fullHeight displayFlex">
+                            <i class="fas fa-share fa-2x testimonyIcon" title="share"></i>
+                            <span class="testimonyIconNumbers">${testimonies[i].shares}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            const loading = document.querySelector('#testimonyLoading');
+            // new DisplayStuffs().hideStuff(loading);
+        }
+    })
+    .then(more => {
+        document.querySelector('#testimonies').innerHTML += `
+        <div class="testimonyBody z-depth-2 displayFlexColumn" id="viewMoreTesimonies">
+            <i class="fas fa-newspaper fa-5x"></i>
+            <h4>View more testimonies</h4>
+        </div>
+        `;
+        const viewMoreTesimonies = document.querySelector('#viewMoreTesimonies');
+        viewMoreTesimonies.addEventListener('click', () => AuthDisp.displayLogin()); //display login container when login button is clicked
+        const containers = ['testimonyOwner', 'testimonyStory', 'testimonyIcon']
+        containers.forEach(contain => {
+            document.querySelectorAll(`.${contain}`).forEach(item => {
+                item.addEventListener('click', () => {
+                    console.log("the item is ", item);
+                    AuthDisp.displayLogin();
+                })
+            })
+        })
+    })
+    .catch(err => {
+        console.log(err);
+    })
+
 });
