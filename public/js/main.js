@@ -92,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     likersList += `<li>${likedBy}</li>`;
                 };
             })
-            testimonyWrapper.innerHTML += `
+            testimonyWrapper.innerHTML += `   
                     <div class="testimonyBody z-depth-2">
                     <img src="/static/images/liberated_woman.jpg" alt="testimony_img_here" id="testImg"/>
                     <div class="testimonyHead fullWidth displayFlex pad">${testimonies[i].title}</div>
