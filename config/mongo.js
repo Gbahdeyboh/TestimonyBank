@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
-const url = app.get('env') == "development" ? "mongodb://localhost:27017/TestimonyBank" : "mongodb://testimony_bank:Testimony4real@ds141209.mlab.com:41209/testimony_bank" /*MLab url here */ ;
-console.log("The environment is ", app.get('env'));
+// const url = app.get('env') == "development" ? "mongodb://localhost:27017/TestimonyBank" : "mongodb://testimony_bank:Testimony4real@ds141209.mlab.com:41209/testimony_bank" /*MLab url here */ ;
+
+const url = "mongodb://testimony_bank:Testimony4real@ds141209.mlab.com:41209/testimony_bank";
+
 mongoose.connect(url, {
         useNewUrlParser: true
     })
