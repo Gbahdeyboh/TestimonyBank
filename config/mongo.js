@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 
-// const url = app.get('env') == "development" ? "mongodb://localhost:27017/TestimonyBank" : "mongodb://testimony_bank:Testimony4real@ds141209.mlab.com:41209/testimony_bank" /*MLab url here */ ;
+const url = app.get('env') == "production" ? "mongodb://testimony_bank:Testimony4real@ds141209.mlab.com:41209/testimony_bank" : "mongodb://localhost:27017/TestimonyBank" /*MLab url here */ ;
 
-const url = "mongodb://testimony_bank:Testimony4real@ds141209.mlab.com:41209/testimony_bank";
+// const url = "mongodb://testimony_bank:Testimony4real@ds141209.mlab.com:41209/testimony_bank";
 
 console.log("Environment is ", app.get('env'));
 

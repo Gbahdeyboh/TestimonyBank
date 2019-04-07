@@ -4,12 +4,12 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const customEnv = require('custom-env').env();
 const cors = require('cors');
- 
-const mongooseConnect = require('./config/mongo'); //connect to mongo database
+
+require('./config/mongo'); //connect to mongo database
 
 const signupAuth = require('./auth/signup');
 
-const signinAuth = require('./auth/signin'); 
+const signinAuth = require('./auth/signin');
 
 const userRoute = require('./routes/users');
 
@@ -36,7 +36,7 @@ app.use(express.json());
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Headers', '*');
-    if(req.method === 'OPTIONS'){
+    if (req.method === 'OPTIONS') {
         res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         return res.status(200).json({});
     }
@@ -48,7 +48,7 @@ app.use('/api', signinAuth);
 app.use('/api', userRoute);
 app.use('/api', testimoniesRoute);
 
-const crypto = require('crypto'); 
+const crypto = require('crypto');
 
 
 
