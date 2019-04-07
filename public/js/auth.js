@@ -7,8 +7,6 @@
 | Account creation and login validations   |
 =========================================*/
 
-const api = 'https://testimony-bank.herokuapp.com'; //http://localhost:8500
-
 function ValidateSignUp() {
     this.disp = new DisplayStuffs();
     this.name = document.querySelector('#signUpFullName');
