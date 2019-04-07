@@ -6,6 +6,8 @@ const mongoose = require('mongoose');
 
 const url = "mongodb://testimony_bank:Testimony4real@ds141209.mlab.com:41209/testimony_bank";
 
+console.log("Environment is ", app.get('env'));
+
 mongoose.connect(url, {
         useNewUrlParser: true
     })
