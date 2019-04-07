@@ -53,7 +53,7 @@ const crypto = require('crypto');
 
 
 
-const port = 8500 || process.env.PORT;
+const port = process.env.PORT || 8500;
 app.listen(port, () => console.log(`Listening on port ${port}`));
 
 //Success json message format
