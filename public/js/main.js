@@ -1,19 +1,20 @@
 /**!
-* Testimony Bank by @Gbahdeyboh - "web link"
-* Licence - 
-*/
+ * Testimony Bank by @Gbahdeyboh - "web link"
+ * Licence - 
+ */
 
 //After first page has been scrolled, change the class of the header to change how its displayed
-function headerScroll(){
+function headerScroll() {
     let firstPageBodyHead = document.querySelector('#firstPageBodyHead');
-    if(document.documentElement.scrollTop > 600 || document.body.scrollTop > 600){
+    if (document.documentElement.scrollTop > 600 || document.body.scrollTop > 600) {
         firstPageBodyHead.classList.add('headerScrolled');
+    } else {
+        firstPageBodyHead.classList.remove('headerScrolled');
     }
-    else{
-        firstPageBodyHead.classList.remove('headerScrolled'); 
-    }
-} 
-window.onscroll = () => {headerScroll();}
+}
+window.onscroll = () => {
+    headerScroll();
+}
 
 
 
@@ -25,33 +26,33 @@ window.onscroll = () => {headerScroll();}
  * @param {methods} [displayLogin, displayAccountCreationContainer] - display the specified DOM Object 
  */
 
-class AuthDisplay extends DisplayStuffs{
-    constructor(){
+class AuthDisplay extends DisplayStuffs {
+    constructor() {
         super();
         this.overlay = document.querySelector('#pageOverlay');
         this.loginContainer = document.querySelector('#loginContainer');
         this.accountCreateContainer = document.querySelector('#signUpContainer');
     }
-    displayLogin(){
+    displayLogin() {
         this.displayStuff(this.overlay);
         this.displayFlexStuff(this.loginContainer);
     }
-    closeLoginDisplay(){
+    closeLoginDisplay() {
         this.hideStuff(this.overlay);
         this.hideStuff(this.loginContainer);
     }
-    displayAccountCreationContainer(){
+    displayAccountCreationContainer() {
         this.closeLoginDisplay(); //make sure login display has been closed first
         this.displayStuff(this.overlay);
         this.displayFlexStuff(this.accountCreateContainer);
     }
-    closeAccountDisplay(){
+    closeAccountDisplay() {
         this.hideStuff(this.overlay);
         this.hideStuff(this.accountCreateContainer);
     }
 }
 
-
+const api = 'https://testimony-bank.herokuapp.com'; //http://localhost:8500
 
 //Wait for DOM to load
 document.addEventListener('DOMContentLoaded', () => {
@@ -66,33 +67,37 @@ document.addEventListener('DOMContentLoaded', () => {
     displayLoginBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login container when login button is clicked
     shareTestimonyBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login container when login button is clicked
     closeLoginBtn.addEventListener('click', () => AuthDisp.closeLoginDisplay()); //close the login container
-    displayCreateAccountBtn.addEventListener('click', () => {AuthDisp.displayAccountCreationContainer();});
-    closeAccountBtn.addEventListener('click', () => {AuthDisp.closeAccountDisplay()});
+    displayCreateAccountBtn.addEventListener('click', () => {
+        AuthDisp.displayAccountCreationContainer();
+    });
+    closeAccountBtn.addEventListener('click', () => {
+        AuthDisp.closeAccountDisplay()
+    });
 
-    fetch('http://localhost:8500/api/testimony/get?page=1&&limit=7')
-    .then(data=> {
-        return data.json();
-    })
-    .then(testimony => {
-        console.log(testimony);
-        const testimonies = testimony.payload.data;
-        const testimonyWrapper = document.querySelector('#testimonies');
-        for(let i = 0; i < testimonies.length; i++){
-            //Format the date posted
-            const extractDateDetails = testimonies[i].datePosted.split('T').shift().split('-');
-            const dt = new Date(extractDateDetails);
-            const datePosted = dt.toGMTString().split('00:00:00 GMT')[0];
-            //Store the id in the single testimony prompt
-            // document.querySelector('#likeIcon').dataset.id = testimonies[i]._id;
-            const likers = testimonies[i].likes; //Number of likes
-            // console.log("likers are ", likers);
-            let likersList = '';
-            likers.forEach(likedBy => {
-                if(likedBy !== 0){
-                    likersList += `<li>${likedBy}</li>`;
-                };
-            })
-            testimonyWrapper.innerHTML += `   
+    fetch(`${api}/api/testimony/get?page=1&&limit=7`)
+        .then(data => {
+            return data.json();
+        })
+        .then(testimony => {
+            console.log(testimony);
+            const testimonies = testimony.payload.data;
+            const testimonyWrapper = document.querySelector('#testimonies');
+            for (let i = 0; i < testimonies.length; i++) {
+                //Format the date posted
+                const extractDateDetails = testimonies[i].datePosted.split('T').shift().split('-');
+                const dt = new Date(extractDateDetails);
+                const datePosted = dt.toGMTString().split('00:00:00 GMT')[0];
+                //Store the id in the single testimony prompt
+                // document.querySelector('#likeIcon').dataset.id = testimonies[i]._id;
+                const likers = testimonies[i].likes; //Number of likes
+                // console.log("likers are ", likers);
+                let likersList = '';
+                likers.forEach(likedBy => {
+                    if (likedBy !== 0) {
+                        likersList += `<li>${likedBy}</li>`;
+                    };
+                })
+                testimonyWrapper.innerHTML += `   
                     <div class="testimonyBody z-depth-2">
                     <img src="/static/images/liberated_woman.jpg" alt="testimony_img_here" id="testImg"/>
                     <div class="testimonyHead fullWidth displayFlex pad">${testimonies[i].title}</div>
@@ -131,31 +136,31 @@ document.addEventListener('DOMContentLoaded', () => {
                     </div>
                 </div>
             `;
-            const loading = document.querySelector('#testimonyLoading');
-            // new DisplayStuffs().hideStuff(loading);
-        }
-    })
-    .then(more => {
-        document.querySelector('#testimonies').innerHTML += `
+                const loading = document.querySelector('#testimonyLoading');
+                // new DisplayStuffs().hideStuff(loading);
+            }
+        })
+        .then(more => {
+            document.querySelector('#testimonies').innerHTML += `
         <div class="testimonyBody z-depth-2 displayFlexColumn" id="viewMoreTesimonies">
             <i class="fas fa-newspaper fa-5x"></i>
             <h4>View more testimonies</h4>
         </div>
         `;
-        const viewMoreTesimonies = document.querySelector('#viewMoreTesimonies');
-        viewMoreTesimonies.addEventListener('click', () => AuthDisp.displayLogin()); //display login container when login button is clicked
-        const containers = ['testimonyOwner', 'testimonyStory', 'testimonyIcon']
-        containers.forEach(contain => {
-            document.querySelectorAll(`.${contain}`).forEach(item => {
-                item.addEventListener('click', () => {
-                    console.log("the item is ", item);
-                    AuthDisp.displayLogin();
+            const viewMoreTesimonies = document.querySelector('#viewMoreTesimonies');
+            viewMoreTesimonies.addEventListener('click', () => AuthDisp.displayLogin()); //display login container when login button is clicked
+            const containers = ['testimonyOwner', 'testimonyStory', 'testimonyIcon']
+            containers.forEach(contain => {
+                document.querySelectorAll(`.${contain}`).forEach(item => {
+                    item.addEventListener('click', () => {
+                        console.log("the item is ", item);
+                        AuthDisp.displayLogin();
+                    })
                 })
             })
         })
-    })
-    .catch(err => {
-        console.log(err);
-    })
+        .catch(err => {
+            console.log(err);
+        })
 
 });

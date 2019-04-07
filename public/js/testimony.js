@@ -86,7 +86,7 @@ function loadTestimonyData(page) {
             </div>
         </div>
     `; //show loading animation
-    fetch(`http://l/api/testimony/get?page=${page}`, {
+    fetch(`${api}/api/testimony/get?page=${page}`, {
             headers: {
                 "Content-Type": "application/json",
                 "Authorization": `Bearer ${token}`
@@ -236,7 +236,7 @@ function viewOtherProfile(dom) {
     const userId = dom.dataset.id;
     console.log(userId);
     //Get the users data 
-    fetch(`api/api/users/${userId}`)
+    fetch(`${api}/api/users/${userId}`)
         .then(data => {
             return data.json();
         })
@@ -279,7 +279,7 @@ function testify() {
     const testimony = document.querySelector('#testimonyContentInput');
     const errorContainer = document.querySelector('#testimonyError');
     console.log("hellllooooooo");
-    title.value === "" || testimony.value === "" ? new DisplayStuffs().displayFlexStuff(errorContainer) : fetch(`api/api/testimony/add`, {
+    title.value === "" || testimony.value === "" ? new DisplayStuffs().displayFlexStuff(errorContainer) : fetch(`${api}/api/testimony/add`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -337,7 +337,7 @@ function viewTestimonyDetails(dom, isNewComment = false, isList = false) {
     loader.style.display = 'flex';
     dataBody.style.display = 'none';
     //Fetch the testimony from the api
-    fetch(`api/api/testimony/get/${testimonyId}`, {
+    fetch(`${api}/api/testimony/get/${testimonyId}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -408,7 +408,7 @@ function likeTestimony(dom) {
     const likerId = data.payload.data.name;
     const testimonyId = dom.dataset.id;
     console.log("The testimony Id is ", testimonyId);
-    fetch(`api/api/testimony/like`, {
+    fetch(`${api}/api/testimony/like`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
@@ -452,7 +452,7 @@ function comment() {
     const commentersName = data.payload.data.name;
     const token = data.payload.token;
     const comment = document.querySelector('#commentInput');
-    comment.value === "" ? /*Don't send comment when empty*/ false : fetch(`api/api/testimony/comment/add`, {
+    comment.value === "" ? /*Don't send comment when empty*/ false : fetch(`${api}/api/testimony/comment/add`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -513,7 +513,7 @@ async function newComment(dom) {
 function loadComments(testimonyId) {
     const data = JSON.parse(localStorage.getItem('t_b_data')); //users data
     const token = data.payload.token;
-    fetch(`api/api/testimony/comment/get/${testimonyId}`, {
+    fetch(`${api}/api/testimony/comment/get/${testimonyId}`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
@@ -568,7 +568,7 @@ function searchTestimony() {
     } else {
         const data = JSON.parse(localStorage.getItem('t_b_data')); //users data
         const token = data.payload.token;
-        fetch(`api/api/testimony/search?q=${searchInput.value}`, {
+        fetch(`${api}/api/testimony/search?q=${searchInput.value}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
