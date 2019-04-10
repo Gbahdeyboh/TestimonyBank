@@ -52,7 +52,6 @@ class AuthDisplay extends DisplayStuffs {
     }
 }
 
-const api = 'https://testimony-bank.herokuapp.com'; //http://localhost:8500
 
 //Wait for DOM to load
 document.addEventListener('DOMContentLoaded', () => {
