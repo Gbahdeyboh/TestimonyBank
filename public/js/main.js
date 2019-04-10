@@ -15,6 +15,10 @@ function headerScroll() {
 window.onscroll = () => {
     headerScroll();
 }
+//If user is logged in, redirect to the testimony page
+// if (localStorage.getItem('t_b_tok')) {
+//     window.location.assign('./testimony.html');
+// }
 
 
 
@@ -63,11 +67,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const AuthDisp = new AuthDisplay();
 
-    displayLoginBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login container when login button is clicked
+    displayLoginBtn.addEventListener('click', () => {
+        AuthDisp.displayLogin(); //display login container when login button is clicked
+        authWithEnterBtn(true, false); //Aloow user to submit with enter button
+    });
     shareTestimonyBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login container when login button is clicked
     closeLoginBtn.addEventListener('click', () => AuthDisp.closeLoginDisplay()); //close the login container
     displayCreateAccountBtn.addEventListener('click', () => {
         AuthDisp.displayAccountCreationContainer();
+        authWithEnterBtn(false, true); //allow user to submit with enter button
     });
     closeAccountBtn.addEventListener('click', () => {
         AuthDisp.closeAccountDisplay()

@@ -195,6 +195,38 @@ function login() {
 
 
 
+//Allow user login or sign up by clicking the enter Button after filling in the form
+function authWithEnterBtn(logUserIn = false, signUserUp = false) {
+    //get the Id's for all the auth inputs 
+    const signUpId = ['signUpFullName', 'signUpEmail', 'signUpNumber', 'signUpPassword', 'signUpConfirmPassword']
+    const loginId = ['loginEmail', 'loginPassword'];
+    const authIDs = [...loginId, ...signUpId];
+    if (logUserIn) {
+        loginId.forEach((log) => {
+            function clickEnter(e) {
+                if (e.keyCode === 13) {
+                    //Attempt to log user in when enter button is clicked
+                    const validateLogin = new login();
+                    validateLogin.login();
+                }
+            }
+            document.querySelector(`#${log}`).addEventListener('keyup', clickEnter);
+        });
+    } else if (signUserUp) {
+        signUpId.forEach((sign) => {
+            function clickEnter(e) {
+                if (e.keyCode === 13) {
+                    //Attempt to log user in when enter button is clicked
+                    const validateSignUp = new ValidateSignUp();
+                    validateSignUp.signUp();
+                }
+            }
+            document.querySelector(`#${sign}`).addEventListener('keyup', clickEnter);
+        });
+    }
+}
+
+
 
 
 document.addEventListener('DOMContentLoaded', () => {
