@@ -7,7 +7,10 @@
 | Account creation and login validations   |
 =========================================*/
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 24163a560f85d4747cc6dbdde53de9660ea1b790
 function ValidateSignUp() {
     this.disp = new DisplayStuffs();
     this.name = document.querySelector('#signUpFullName');

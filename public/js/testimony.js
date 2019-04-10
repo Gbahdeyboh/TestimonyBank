@@ -47,7 +47,6 @@ class DisplayTestimonyStuffs extends DisplayStuffs {
     }
 }
 
-const api = 'https://testimony-bank.herokuapp.com'; //http://localhost:8500
 
 //check if user is logged in, if not redirect user
 document.addEventListener('DOMContentLoaded', () => {
