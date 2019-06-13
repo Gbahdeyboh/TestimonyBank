@@ -32,5 +32,5 @@ class DisplayStuffs {
     }
 }
 
-const api = 'https://testimony-bank.herokuapp.com';
-// const api = "http://localhost:8500";
+// const api = 'https://testimony-bank.herokuapp.com';
+const api = "http://localhost:8500";

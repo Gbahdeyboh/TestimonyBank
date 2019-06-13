@@ -19,7 +19,8 @@
     "jsonwebtoken": "^8.4.0",
     "mongodb": "^3.1.10",
     "mongoose": "^5.4.3",
-    "mongoose-paginate": "^5.0.3"
+    "mongoose-paginate": "^5.0.3",
+    "nodemailer": "^6.1.0"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",

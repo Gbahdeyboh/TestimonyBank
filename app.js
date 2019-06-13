@@ -55,25 +55,3 @@ const crypto = require('crypto');
 
 const port = process.env.PORT || 8500;
 app.listen(port, () => console.log(`Listening on port ${port}`));
-
-//Success json message format
-// {
-//     "success": true,
-//     "payload": {
-//       /* Application-specific data would go here. */
-//     }
-//   }
-
-
-
-//Error json message format
-// {
-//     "success": false,
-//     "payload": {
-//       /* Application-specific data would go here. */
-//     },
-//     "error": {
-//       "code": 123,
-//       "message": "An error occurred!"
-//     }
-//   }

@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     displayLoginBtn.addEventListener('click', () => {
         AuthDisp.displayLogin(); //display login container when login button is clicked
-        authWithEnterBtn(true, false); //Aloow user to submit with enter button
+        authWithEnterBtn(true, false); //Allow user to submit with enter button
     });
     shareTestimonyBtn.addEventListener('click', () => AuthDisp.displayLogin()); //display login container when login button is clicked
     closeLoginBtn.addEventListener('click', () => AuthDisp.closeLoginDisplay()); //close the login container
